@@ -1,0 +1,145 @@
+---
+import heroImg from '@assets/HeroHolder.jpeg';
+
+const {
+  HeroTitle = 'Mantenimiento y recuperación de lagos y ecosistemas acuáticos',
+  HeroSubtitle = 'Tecnología sustentable y enfoque biológico integral para preservar la belleza natural de sus espejos de agua',
+  CTA = [
+    { text: 'Contactanos', href: '#contacto', style: 'primary' },
+    { text: 'Ver servicios', href: '#servicios', style: 'outline' },
+  ],
+  Discover = { text: 'Descubre más', href: '#quienes-somos' },
+} = Astro.props;
+---
+
+<section id="inicio" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <div id="hero-sentinel" class="absolute top-0 h-1 w-full"></div>
+  <!-- Background image -->
+  <div
+    class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+    style={`background-image: url('${heroImg.src}');`}
+  >
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/20"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 container mx-auto px-4 lg:px-8 text-center">
+    <div class="max-w-4xl mx-auto space-y-8">
+      <h1
+        class="font-heading text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-primary-foreground leading-tight animate-fade-up fade-up-title"
+      >
+        {HeroTitle}
+      </h1>
+
+      <p
+        class="text-lg md:text-xl lg:text-2xl text-primary-foreground/90 max-w-2xl mx-auto animate-fade-up fade-up-subtitle"
+      >
+        {HeroSubtitle}
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4 animate-fade-up fade-up-cta">
+        {
+          CTA.map((cta: { text: string; href: string; style: string }) => (
+            <a
+              href={cta.href}
+              class={
+                cta.style === 'primary'
+                  ? `
+                    inline-flex items-center justify-center
+                    rounded-xl px-8 py-3 text-lg font-semibold
+                    bg-primary text-primary-foreground
+                    shadow-lg shadow-primary/30
+                    hover:bg-primary/90
+                    hover:shadow-primary/40
+                    hover:-translate-y-0.5
+                    transition-all
+                    `
+                  : `
+                    inline-flex items-center justify-center
+                    rounded-xl px-8 py-3 text-lg font-medium
+                    text-primary-foreground/80
+                    hover:text-primary-foreground
+                    hover:underline underline-offset-4
+                    hover:-translate-y-0.5
+                    transition-all
+                    `
+              }
+            >
+              {cta.text}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div
+    class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-up"
+    style="--dur:0.9s; --delay:0.9s; --offset:8px"
+  >
+    <a
+      href={Discover.href}
+      class="flex flex-col items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+      aria-label="Scroll to next section"
+    >
+      <span class="text-sm font-medium">{Discover.text}</span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5 animate-bounce"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="1.5"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+      </svg>
+    </a>
+  </div>
+</section>
+
+<style>
+  .fade-up-title {
+    --dur: 0.7s;
+    --delay: 0.15s;
+    --offset: 24px;
+  }
+
+  .fade-up-subtitle {
+    --dur: 1s;
+    --delay: 0.35s;
+    --offset: 16px;
+  }
+
+  .fade-up-cta {
+    --dur: 1.05s;
+    --delay: 0.55s;
+    --offset: 10px;
+  }
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(var(--offset, 16px));
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-up {
+    animation-name: fade-up;
+    animation-duration: var(--dur, 0.8s);
+    animation-delay: var(--delay, 0s);
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    animation-fill-mode: both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-up {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>
