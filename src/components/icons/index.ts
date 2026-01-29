@@ -1,0 +1,10 @@
+export { default as Droplet } from './Droplet.astro';
+export { default as Facebook } from './Facebook.astro';
+export { default as Instagram } from './Instagram.astro';
+export { default as Leaf } from './Leaf.astro';
+export { default as LinkedIn } from './Linkedin.astro';
+export { default as LogoMono } from './LogoMono.astro';
+export { default as Mail } from './Mail.astro';
+export { default as Phone } from './Phone.astro';
+export { default as Pin } from './Pin.astro';
+export { default as ShieldCheck } from './ShieldCheck.astro';

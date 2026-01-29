@@ -1,0 +1,62 @@
+---
+interface ServiceCard {
+  title: string;
+  body: string;
+  img: string;
+}
+const {
+  sectionHeader = 'Quienes Somos?',
+  title = 'Especialistas en el cuidado de ecosistemas acuáticos',
+  body = 'Hace más de una década trabajamos en la limpieza y recuperación de lagos y espejos de agua en todo el país. Diseñamos y operamos maquinaria especializada que permite eliminar vegetación acuática y residuos flotantes de forma eficiente, sustentable y sin químicos, cuidando la salud del ecosistema en cada intervención.',
+} = Astro.props;
+const serviceCards: ServiceCard[] = [
+  {
+    title: 'Diagnóstico y Evaluación',
+    body: 'Analizamos el estado del espejo de agua para definir la mejor intervención.',
+    img: 'img1',
+  },
+  {
+    title: 'Limpieza y Recuperación Biológica',
+    body: 'Analizamos el estado del espejo de agua para definir la mejor intervención.',
+    img: 'img2',
+  },
+  {
+    title: 'Mantenimiento Integral',
+    body: 'Mantenemos lagos y lagunas limpios y equilibrados en el tiempo.',
+    img: 'img3',
+  },
+];
+---
+
+<section id="quienes-somos" class="w-full py-16 bg-white overflow-hidden">
+  <div class="flex items-center m-8 gap-8 w-[80vw] mx-auto">
+    <!-- About Us -->
+    <div class="text-left mb-16 w-1/3">
+      <h2 class="text-primary-background font-bold tracking-widest text-2xl mb-3">
+        {sectionHeader}
+      </h2>
+      <h3 class="text-primary font-bold tracking-widest text-xl mb-3">
+        {title}
+      </h3>
+      <p class="text-sm font-bold text-slate-900">
+        {body}
+      </p>
+    </div>
+    <!-- Services List -->
+    <div class="flex w-2/3 gap-6">
+      {
+        serviceCards.map(({ title, body, img }) => (
+          <div class="flex  flex-col items-center p-4 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+            <div class={`shrink-0 p-3 rounded-xl mr-4`}>
+              <img src={img} alt={title} class="w-6 h-6" />
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-900">{title}</h4>
+              <p class="text-slate-500 text-sm">{body}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
