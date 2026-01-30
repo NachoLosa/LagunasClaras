@@ -1,0 +1,55 @@
+---
+import type { AboutUsProps } from '../types/AboutUs';
+import ServiceCardDesktop from './ServiceCardDesktop.astro';
+import ServiceRowMobile from './ServiceRowMobile.astro';
+
+const { sectionHeader, title, body, viewMore, viewMoreText, serviceCards } =
+  Astro.props as AboutUsProps;
+---
+
+<section id="about-us" class="overflow-hidden bg-white py-8 sm:w-full md:w-full lg:w-full">
+  <div
+    class="mx-auto flex w-[90vw] flex-col items-center gap-10 rounded-2xl border border-slate-100 p-6 shadow-lg md:items-start lg:flex-row lg:items-center"
+  >
+    <!-- About Us -->
+    <div class="gap-auto w-full text-left sm:w-full md:w-full lg:w-[35%]">
+      <h2 class="text-primary-background mb-4 text-lg font-bold tracking-widest">
+        {sectionHeader}
+      </h2>
+      <h3 class="text-primary mb-3 text-xl font-bold tracking-widest">
+        {title}
+      </h3>
+      <p class="text-sm font-bold text-slate-900">
+        {body}
+      </p>
+      <a
+        href="/quienes-somos"
+        class="text-primary mt-6 inline-flex items-center gap-1 font-semibold duration-300 hover:translate-x-3 hover:underline"
+      >
+        {viewMore}
+        <svg
+          class="h-5 w-5 transition-transform duration-200"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <path d="M9 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+    <!-- Services List -->
+    <div
+      class="flex w-full flex-col divide-y divide-slate-100 px-4 md:flex-row md:flex-wrap md:items-start md:justify-between md:divide-y-0 md:px-0 lg:w-[65%] lg:flex-nowrap lg:gap-4"
+    >
+      {
+        serviceCards.map((service) => (
+          <>
+            <ServiceCardDesktop {...service} viewMoreText={viewMoreText} />
+            <ServiceRowMobile {...service} />
+          </>
+        ))
+      }
+    </div>
+  </div>
+</section>

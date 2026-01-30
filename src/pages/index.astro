@@ -1,8 +1,8 @@
 ---
 import Footer from '@/components/footer.astro';
-import Navbar from '@/components/Navbar.astro';
+import Navbar from '@/components/navbar/navbar.astro';
 import Layout from '@/layouts/Layout.astro';
-import Home from '@/pages/Home.astro';
+import HomePage from '@sections/home/HomePage.astro';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
@@ -13,7 +13,7 @@ import Home from '@/pages/Home.astro';
     <Navbar />
   </Fragment>
   <Fragment slot="main">
-    <Home />
+    <HomePage />
   </Fragment>
   <Fragment slot="footer">
     <Footer />

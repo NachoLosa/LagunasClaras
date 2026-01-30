@@ -1,0 +1,21 @@
+---
+import type { ServiceRowMobileProps } from '@/sections/home/types/ServiceCard';
+
+const { title, Icon, shortDescription } = Astro.props as ServiceRowMobileProps;
+---
+
+<div class="flex w-full items-center gap-4 py-4 md:hidden">
+  <div
+    class="text-primary flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-slate-50 p-2"
+  >
+    <Icon class="h-full w-full" />
+  </div>
+  <div class="flex flex-col justify-center">
+    <h4 class="text-primary leading-tight font-bold">
+      {title}
+    </h4>
+    <p class="line-clamp-2 text-xs text-slate-600">
+      {shortDescription}
+    </p>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+---
+import { DropMagnifying, ShieldEngine, WaterReclying } from '@icons';
+import AboutUsSection from './components/AboutUsSection.astro';
+import HeroSection from './components/HeroSection.astro';
+import type { AboutUsProps } from './types/AboutUs';
+import type { HeroProps } from './types/Hero';
+import type { ServiceCardBase } from './types/ServiceCard';
+
+// Hero Content
+const heroContent: HeroProps = {
+  HeroTitle: 'Mantenimiento y recuperación de lagos y ecosistemas acuáticos',
+  HeroSubtitle:
+    'Tecnología sustentable y enfoque biológico integral para preservar la belleza natural de sus espejos de agua',
+  CTA: [
+    { text: 'Contactanos', href: '#contacto', style: 'primary' },
+    { text: 'Ver servicios', href: '#servicios', style: 'outline' },
+  ],
+  Discover: { text: 'Descubre más', href: '#quienes-somos' },
+};
+
+// About Us Content
+const aboutUsContent: Omit<AboutUsProps, 'serviceCards'> = {
+  sectionHeader: 'Quienes Somos?',
+  title: 'Especialistas en el cuidado de ecosistemas acuáticos',
+  body: 'Hace más de una década trabajamos en la limpieza y recuperación de lagos y espejos de agua en todo el país. Diseñamos y operamos maquinaria especializada que permite eliminar vegetación acuática y residuos flotantes de forma eficiente, sustentable y sin químicos, cuidando la salud del ecosistema en cada intervención.',
+  viewMore: 'Ver más',
+  viewMoreText: 'Ver detalle',
+};
+
+// Service Cards Data
+const serviceCards: ServiceCardBase[] = [
+  {
+    title: 'Diagnóstico y Evaluación',
+    shortDescription: 'dolor sit amet consectetur',
+    Icon: DropMagnifying,
+  },
+  {
+    title: 'Limpieza y Recuperación',
+    shortDescription: 'Lorem ipsum dolor sit amet consectetur',
+    Icon: WaterReclying,
+  },
+  {
+    title: 'Mantenimiento Integral',
+    shortDescription: 'dolor sit amet consectetur',
+    Icon: ShieldEngine,
+  },
+];
+---
+
+<HeroSection {...heroContent} />
+
+<AboutUsSection {...aboutUsContent} serviceCards={serviceCards} />
