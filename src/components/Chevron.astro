@@ -1,0 +1,30 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+interface Props extends HTMLAttributes<'svg'> {
+  direction: 'up' | 'down' | 'left' | 'right';
+  class?: string;
+}
+
+const { direction, class: className, ...attrs } = Astro.props as Props;
+---
+
+<svg
+  {...attrs}
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  class:list={[
+    'block h-5 w-5 shrink-0 transition-opacity duration-200',
+    className,
+    {
+      'rotate-180': direction === 'up',
+      'rotate-0': direction === 'down',
+      'rotate-90': direction === 'left',
+      '-rotate-90': direction === 'right',
+    },
+  ]}
+>
+  <path stroke-linecap="round" stroke-linejoin="round" d="m19 9-7 7-7-7"></path>
+</svg>

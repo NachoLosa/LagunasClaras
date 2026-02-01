@@ -1,0 +1,11 @@
+export { default as logoAbril } from './abril.webp';
+export { default as logoAlberti } from './alberti.webp';
+export { default as logoBarrancasSM } from './barrancas-sm.webp';
+export { default as logoCNE } from './cne.webp';
+export { default as logoElCanton } from './el-canton.webp';
+export { default as logoNauticoEscobar } from './nautico-escobar.avif';
+export { default as logoPuertos } from './puertos.webp';
+export { default as logoSanAgustin } from './san-agustin.webp';
+export { default as logoSanMatias } from './san-matias.webp';
+export { default as logoSanRafael } from './san-rafael.webp';
+export { default as logoTermasVillaElisa } from './termas-villa-elisa.webp';
