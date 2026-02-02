@@ -9,3 +9,4 @@ export { default as Phone } from './Phone.astro';
 export { default as Pin } from './Pin.astro';
 export { default as ShieldEngine } from './ShieldEngine.astro';
 export { default as WaterReclying } from './WaterReclying.astro';
+export { default as WhatsApp } from './WhatsApp.astro';

@@ -1,0 +1,79 @@
+---
+import CTAButton from '@/components/CTAButton.astro';
+import type { ContactCard } from '../types/Contact';
+
+const colorStyles = {
+  green: {
+    card: 'hover:shadow-green-500/10',
+    icon: 'bg-green-500/20 text-green-600 ring-green-500/20',
+  },
+  blue: {
+    card: 'hover:shadow-blue-500/10',
+    icon: 'bg-blue-500/20 text-blue-600 ring-blue-500/20',
+  },
+  slate: {
+    card: 'hover:shadow-slate-500/10',
+    icon: 'bg-slate-500/20 text-slate-600 ring-slate-500/20',
+  },
+};
+const { title, description, contactCards, cta } = Astro.props;
+---
+
+<section class="bg-background relative">
+  <div class="mx-auto w-[80vw] max-w-7xl rounded-2xl px-4 py-4 sm:px-6 lg:px-8 lg:py-8">
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
+      <!-- Left col: Persuasive message -->
+      <div class="space-y-8">
+        <div>
+          <h2
+            class="text-primary text-3xl font-bold tracking-tight text-balance sm:text-4xl md:text-5xl"
+          >
+            {title}
+          </h2>
+          <p class="text-foreground mt-6 text-lg leading-8 text-pretty">
+            {description}
+          </p>
+        </div>
+        <div>
+          <CTAButton href="/contacto"> {cta} </CTAButton>
+        </div>
+      </div>
+
+      <!-- Right col: Contact Cards -->
+      <div class="flex flex-col gap-4">
+        {
+          contactCards.map((card: ContactCard) => (
+            <div
+              class={`group flex items-center gap-5 rounded-2xl border border-white/20 bg-white/40 p-5 shadow-xl ring-1 ring-white/10 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:bg-white/80 hover:shadow-2xl ${colorStyles[card.colorScheme].card}`}
+            >
+              <div
+                class={`flex h-12 w-12 shrink-0 items-center justify-center rounded-lg ring-1 ${colorStyles[card.colorScheme].icon}`}
+              >
+                <card.icon class="h-6 w-6" />
+              </div>
+              <div>
+                <h3 class="font-semibold text-slate-800">{card.title}</h3>
+                <p class="text-sm text-slate-600">{card.description}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <!-- Map Section -->
+    <div
+      class="group mt-16 overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 shadow-inner transition-all duration-500 hover:shadow-lg"
+    >
+      <div class="relative h-72 w-full md:h-80">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3291.956693522271!2d-58.583!3d-34.425!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzTCsDI1JzMwLjAiUyA1OMKwMzUnMDAuMCJX!5e0!3m2!1sen!2sar!4v1234567890"
+          width="100%"
+          height="100%"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+</section>

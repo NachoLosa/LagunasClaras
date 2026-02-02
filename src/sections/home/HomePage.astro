@@ -1,10 +1,11 @@
 ---
-import { DropMagnifying, ShieldEngine, WaterReclying } from '@icons';
+import { DropMagnifying, Mail, Pin, ShieldEngine, WaterReclying, WhatsApp } from '@icons';
 import AboutUsSection from './components/AboutUsSection.astro';
 import ClientsSection from './components/ClientsSection.astro';
 import HeroSection from './components/HeroSection.astro';
 import type { AboutUsProps } from './types/AboutUs';
 import type { ClientsProps } from './types/Clients';
+import type { ContactSectionProps } from './types/Contact';
 import type { HeroProps } from './types/Hero';
 import type { ServiceCardBase } from './types/ServiceCard';
 
@@ -22,6 +23,7 @@ import {
   logoSanRafael,
   logoTermasVillaElisa,
 } from '@assets/Logos';
+import ContactSection from './components/ContactSection.astro';
 
 // Hero Content
 const heroContent: HeroProps = {
@@ -125,10 +127,41 @@ const clientsContent: ClientsProps = {
     },
   ],
 };
+// Contact Section Props
+
+const contactSectionContent: ContactSectionProps = {
+  title: '¿Querés recuperar la claridad de tu espejo de agua?',
+  description:
+    'Contanos tu necesidad y nuestro equipo te asesora sin cargo con una solución adaptada a tu entorno.',
+  cta: 'Contactanos',
+  contactCards: [
+    {
+      title: 'WhatsApp',
+      description: 'Respuesta rápida y directa',
+      icon: WhatsApp,
+      colorScheme: 'green',
+    },
+    {
+      title: 'Email',
+      description: 'Contacto formal y presupuestos',
+      icon: Mail,
+      colorScheme: 'blue',
+    },
+    {
+      title: 'Tigre, Buenos Aires',
+      description: 'Atendemos en todo el país',
+      icon: Pin,
+      colorScheme: 'slate',
+    },
+  ],
+};
 ---
 
 <HeroSection {...heroContent} />
-<div class="gap-auto flex h-screen flex-col">
+<div class="gap-auto flex h-[90vh] flex-col">
   <AboutUsSection {...aboutUsContent} serviceCards={serviceCards} />
   <ClientsSection {...clientsContent} />
+</div>
+<div class="bg-accent-foreground w-full">
+  <ContactSection {...contactSectionContent} />
 </div>

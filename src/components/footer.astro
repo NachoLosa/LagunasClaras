@@ -16,37 +16,39 @@ const FooterContent = {
   ],
   cta: [
     { text: '@lagunasclaras', href: '/', Icon: Mail },
-    { text: '+54 9 351 5555555', href: 'tel:+5493515555555', Icon: Phone },
+    { text: '11 5045-1158', href: 'tel:+5491150451158', Icon: Phone },
     { text: 'Ubicacion', href: '#ubicacion', Icon: Pin },
   ],
   copyright: `© ${new Date().getFullYear()} Lagunas Claras. All rights reserved.`,
 };
-
 ---
 
-<footer class="pt-5 pb-5 bg-foreground">
-  <div class="w-full max-w-3xl mx-auto p-4">
-    <div class="flex w-full flex-col md:flex-row justify-between items-center">
-      <div class="mb-4 md:mb-0 gap-6 flex flex-col md:flex-col items-center">
-        <div class="flex flex-col items-center gap-2 font-bold text-lg text-primary-foreground">
-          <LogoMono class="h-12 w-12 min-w-6 text-primary-foreground" />
+<footer class="bg-foreground pt-5 pb-5">
+  <div class="mx-auto w-full max-w-3xl p-4">
+    <div class="flex w-full flex-col items-center justify-between md:flex-row">
+      <div class="mb-4 flex flex-col items-center gap-6 md:mb-0 md:flex-col">
+        <div class="text-primary-foreground flex flex-col items-center gap-2 text-lg font-bold">
+          <LogoMono class="text-primary-foreground h-12 w-12 min-w-6" />
           <span class="nav-text font-semibold">{FooterContent.Title}</span>
         </div>
-        <div class="flex flex-row md:flex-row gap-6">
-        {
-          FooterContent.networks.map(({ Icon, href, text }) => (
-            <a href={href} class="flex items-center gap-2 nav-link transition-colors relative hover:underline">
-              <Icon class="h-6 w-6 min-w-6 text-primary-foreground" />
-              {/* <span class="nav-text font-semibold text-primary-foreground">{text}</span>   */}
-            </a>
-          ))
-        }
+        <div class="flex flex-row gap-6 md:flex-row">
+          {
+            FooterContent.networks.map(({ Icon, href, text }) => (
+              <a
+                href={href}
+                class="nav-link relative flex items-center gap-2 transition-colors hover:underline"
+              >
+                <Icon class="text-primary-foreground h-6 w-6 min-w-6" />
+                {/* <span class="nav-text font-semibold text-primary-foreground">{text}</span>   */}
+              </a>
+            ))
+          }
+        </div>
       </div>
-      </div>
-      <div class="flex flex-col md:flex-col gap-3 text-base font-medium text-primary-foreground">
+      <div class="text-primary-foreground flex flex-col gap-3 text-base font-medium md:flex-col">
         {
           FooterContent.links.map((link) => (
-            <a href={link.href} class="nav-link transition-colors relative hover:underline">
+            <a href={link.href} class="nav-link relative transition-colors hover:underline">
               {link.text}
             </a>
           ))
@@ -62,19 +64,22 @@ const FooterContent = {
           ))
         }
       </div> -->
-      <div class="flex flex-col md:flex-col gap-6">
+      <div class="flex flex-col gap-6 md:flex-col">
         {
           FooterContent.cta.map(({ Icon, href, text }) => (
-            <a href={href} class="flex items-center gap-2 nav-link transition-colors relative hover:underline">
-              <Icon class="h-6 w-6 min-w-6 text-primary-foreground" />
-              <span class="nav-text font-semibold text-primary-foreground">{text}</span>
+            <a
+              href={href}
+              class="nav-link relative flex items-center gap-2 transition-colors hover:underline"
+            >
+              <Icon class="text-primary-foreground h-6 w-6 min-w-6" />
+              <span class="nav-text text-primary-foreground font-semibold">{text}</span>
             </a>
           ))
         }
       </div>
     </div>
   </div>
-  <div class="w-full max-w-xl mx-auto text-center">
-    <p class="text-sm text-muted-foreground">{FooterContent.copyright}</p>
+  <div class="mx-auto w-full max-w-xl text-center">
+    <p class="text-muted-foreground text-sm">{FooterContent.copyright}</p>
   </div>
 </footer>

@@ -1,7 +1,8 @@
 ---
+import Chevron from '@/components/Chevron.astro';
+import CTAButton from '@/components/CTAButton.astro';
 import heroImg from '@assets/HeroHolder.jpeg';
 import type { HeroProps } from '../types/Hero';
-import Chevron from '@/components/Chevron.astro';
 
 const { HeroTitle, HeroSubtitle, CTA, Discover } = Astro.props as HeroProps;
 ---
@@ -33,18 +34,18 @@ const { HeroTitle, HeroSubtitle, CTA, Discover } = Astro.props as HeroProps;
       </p>
       <div class="animate-fade-up fade-up-cta flex flex-col justify-start gap-4 pt-4 sm:flex-row">
         {
-          CTA.map((cta: { text: string; href: string; style: string }) => (
-            <a
-              href={cta.href}
-              class={
-                cta.style === 'primary'
-                  ? `bg-primary text-primary-foreground shadow-primary/30 hover:bg-primary/90 hover:shadow-primary/40 inline-flex items-center justify-center rounded-xl px-8 py-3 text-lg font-semibold shadow-lg transition-all hover:-translate-y-0.5`
-                  : `text-primary-foreground/80 hover:text-primary-foreground inline-flex items-center justify-center rounded-xl px-8 py-3 text-lg font-medium underline-offset-4 transition-all hover:-translate-y-0.5 hover:underline`
-              }
-            >
-              {cta.text}
-            </a>
-          ))
+          CTA.map((cta: { text: string; href: string; style: string }) =>
+            cta.style === 'primary' ? (
+              <CTAButton href={cta.href}>{cta.text}</CTAButton>
+            ) : (
+              <a
+                href={cta.href}
+                class="text-primary-foreground/80 hover:text-primary-foreground inline-flex items-center justify-center rounded-xl px-8 py-3 text-lg font-medium underline-offset-4 transition-all hover:-translate-y-0.5 hover:underline"
+              >
+                {cta.text}
+              </a>
+            )
+          )
         }
       </div>
     </div>

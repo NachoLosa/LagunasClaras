@@ -5,7 +5,7 @@ import type { ClientsProps } from '../types/Clients';
 const { sectionTitle, clients, sectionDescription } = Astro.props as ClientsProps;
 ---
 
-<section class="mx-auto w-[90%] rounded-2xl border border-slate-200 bg-white pt-8 pb-4 shadow-lg">
+<section class="mx-auto w-[80vw] rounded-2xl border border-slate-200 bg-white pt-8 pb-4 shadow-lg">
   <h2 class="text-center text-3xl font-semibold text-slate-800">
     {sectionTitle}
   </h2>
@@ -28,13 +28,13 @@ const { sectionTitle, clients, sectionDescription } = Astro.props as ClientsProp
     >
       {
         clients.map((client) => (
-          <div class="group w-56 shrink-0 transition group-hover:opacity-100 hover:-translate-y-1">
-            <div class="flex aspect-4/3 items-center justify-center bg-none p-6">
+          <div class="group hover:bg-background my-4 w-40 shrink-0 rounded-2xl border bg-gray-400 transition group-hover:opacity-100 hover:-translate-y-1 hover:border-none">
+            <div class="flex aspect-4/3 items-center justify-center bg-none py-6">
               <img
                 src={client.imageUrl}
                 alt={client.alt}
                 loading="lazy"
-                class="max-h-full max-w-full object-contain opacity-80 grayscale transition group-hover:opacity-100 group-hover:grayscale-0"
+                class="h-28 w-32 object-contain opacity-80 grayscale transition group-hover:opacity-100 group-hover:grayscale-0"
               />
             </div>
           </div>
