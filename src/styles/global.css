@@ -137,10 +137,77 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   * {
     @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .nav-link {
+    @apply relative inline-block;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -0.25rem;
+    height: 2px;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: left;
+    background: linear-gradient(to right, theme(--color-primary), theme(--color-accent));
+    transition: transform 500ms ease-in-out;
+  }
+
+  .group:hover .nav-link::after {
+    transform: scaleX(1);
+  }
+
+  .service-card {
+    @apply relative overflow-hidden rounded-2xl p-[2px] transition-transform duration-300 hover:-translate-y-2 hover:scale-105;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    inset: -20%;
+    background: conic-gradient(
+      from 0deg,
+      transparent,
+      var(--color-primary),
+      #34d399,
+      var(--color-primary),
+      transparent
+    );
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    animation: rotate 4s linear infinite;
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .service-card:hover::before {
+    opacity: 1;
+  }
+
+  .service-card__inner {
+    @apply relative z-10 flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-[inherit] bg-white p-6 shadow-sm transition-all duration-300;
+  }
+
+  .service-card:hover .service-card__inner {
+    @apply shadow-md;
   }
 }

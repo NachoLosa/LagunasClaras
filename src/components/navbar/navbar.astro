@@ -16,26 +16,25 @@ const content: NavbarContent = {
 const { brandTitle, links } = content;
 ---
 
-<nav id="navbar" class="nav fixed top-0 z-50 w-full bg-transparent transition-all duration-300">
+<nav
+  id="navbar"
+  class="text-primary-foreground fixed top-0 left-0 z-50 w-full bg-transparent transition-all duration-300"
+>
   <div class="mx-auto flex h-20 max-w-7xl items-center justify-between px-4">
     <!-- Logo -->
     <a href="/" class="text-primary flex items-center gap-2 text-lg font-bold">
       <img src="/logo.svg" alt="Lagunas Claras" class="h-6 w-6 min-w-6" />
-      <span class="nav-text text-primary-foreground font-semibold">{brandTitle}</span>
+      <span id="nav-title" class="text-primary-foreground font-semibold">{brandTitle}</span>
     </a>
 
     <!-- Navigation Links -->
     <ul class="flex gap-6 text-base font-medium">
       {
         links.map((link) => (
-          <li class="transition-all duration-300 hover:translate-y-2 hover:scale-110 hover:underline">
-            <a
-              href={link.href}
-              class="nav-link text-primary-foreground relative transition-colors active:scale-110"
-            >
+          <li class="group transition-all duration-300 hover:translate-y-2 hover:scale-110">
+            <a href={link.href} class="nav-link">
               {link.title}
             </a>
-            {/* <div class="absolute left-0 bottom-0 w-full h-0.5 bg-primary-foreground"></div> */}
           </li>
         ))
       }
@@ -43,66 +42,33 @@ const { brandTitle, links } = content;
   </div>
 </nav>
 
-<!-- <script>
-  const nav = document.getElementById('navbar');
-  if (!nav) return;
+<script>
+  const navbar = document.getElementById('navbar');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const navTitle = document.getElementById('nav-title');
 
-  const sentinel = document.querySelector('#hero-sentinel');
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      nav.classList.toggle('nav-on-hero', entry.isIntersecting);
-      nav.classList.toggle('nav-default', !entry.isIntersecting);
-    },
-    { threshold: 0 }
-  );
+  const updateNavbar = () => {
+    if (window.scrollY === 0) {
+      navbar?.classList.remove('bg-background', 'backdrop-blur', 'shadow-md');
+      navbar?.classList.add('bg-transparent');
+      navLinks.forEach((link) => {
+        link?.classList.remove('text-primary');
+        link?.classList.add('text-primary-foreground');
+      });
+      navTitle?.classList.remove('text-primary');
+      navTitle?.classList.add('text-primary-foreground');
+    } else {
+      navbar?.classList.remove('bg-transparent');
+      navbar?.classList.add('bg-background', 'backdrop-blur', 'shadow-md');
+      navLinks.forEach((link) => {
+        link?.classList.remove('text-primary-foreground');
+        link?.classList.add('text-primary');
+      });
+      navTitle?.classList.remove('text-primary-foreground');
+      navTitle?.classList.add('text-primary');
+    }
+  };
 
-  if (sentinel) observer.observe(sentinel);
-  console.log(sentinel);
-
-  nav.classList.add('nav-on-hero');
-</script> -->
-<!-- 
-<style>
-  /* ===== Navbar base ===== */
-  .nav .nav-text,
-  .nav .nav-link {
-    color: hsl(var(--primary-foreground));
-  }
-
-  /* ===== Navbar over Hero ===== */
-  .nav-on-hero {
-    background-color: hsl(var(--primary) / 0.25);
-    backdrop-filter: blur(10px);
-  }
-
-  .nav-on-hero .nav-link::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -4px;
-    width: 0;
-    height: 2px;
-    background-color: hsl(var(--accent));
-    transition: width 0.25s ease;
-  }
-
-  .nav-on-hero .nav-link:hover::after {
-    width: 100%;
-  }
-
-  /* ===== Navbar default (non-hero) ===== */
-  .nav-default {
-    background-color: hsl(var(--background) / 0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid hsl(var(--border));
-  }
-
-  .nav-default .nav-text,
-  .nav-default .nav-link {
-    color: hsl(var(--foreground));
-  }
-
-  .nav-default .nav-link:hover {
-    color: hsl(var(--primary));
-  }
-</style> -->
+  updateNavbar();
+  window.addEventListener('scroll', updateNavbar);
+</script>

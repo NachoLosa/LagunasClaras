@@ -23,7 +23,7 @@ const FooterContent = {
 };
 ---
 
-<footer class="bg-foreground pt-5 pb-5">
+<footer class="bg-primary py-4">
   <div class="mx-auto w-full max-w-3xl p-4">
     <div class="flex w-full flex-col items-center justify-between md:flex-row">
       <div class="mb-4 flex flex-col items-center gap-6 md:mb-0 md:flex-col">
@@ -39,7 +39,6 @@ const FooterContent = {
                 class="nav-link relative flex items-center gap-2 transition-colors hover:underline"
               >
                 <Icon class="text-primary-foreground h-6 w-6 min-w-6" />
-                {/* <span class="nav-text font-semibold text-primary-foreground">{text}</span>   */}
               </a>
             ))
           }
@@ -54,16 +53,6 @@ const FooterContent = {
           ))
         }
       </div>
-      <!-- <div class="flex flex-col md:flex-col gap-6">
-        {
-          FooterContent.networks.map(({ Icon, href, text }) => (
-            <a href={href} class="flex items-center gap-2 nav-link transition-colors relative hover:underline">
-              <Icon class="h-6 w-6 min-w-6 text-primary-foreground" />
-              <span class="nav-text font-semibold text-primary-foreground">{text}</span>  
-            </a>
-          ))
-        }
-      </div> -->
       <div class="flex flex-col gap-6 md:flex-col">
         {
           FooterContent.cta.map(({ Icon, href, text }) => (

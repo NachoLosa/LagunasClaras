@@ -10,6 +10,7 @@ import type { HeroProps } from './types/Hero';
 import type { ServiceCardBase } from './types/ServiceCard';
 
 // Import client logos
+import ScrollIndicator from '@/components/ScrollIndicator.astro';
 import {
   logoAbril,
   logoAlberti,
@@ -34,7 +35,7 @@ const heroContent: HeroProps = {
     { text: 'Contactanos', href: '#contacto', style: 'primary' },
     { text: 'Ver servicios', href: '#servicios', style: 'outline' },
   ],
-  Discover: { text: 'Descubre más', href: '#quienes-somos' },
+  Discover: { text: 'Descubre más', href: '#about-us' },
 };
 
 // About Us Content
@@ -158,10 +159,16 @@ const contactSectionContent: ContactSectionProps = {
 ---
 
 <HeroSection {...heroContent} />
-<div class="gap-auto flex h-[90vh] flex-col">
+<div class="flex min-h-[calc(100vh-80px)] flex-col items-center justify-center gap-4 pt-16">
   <AboutUsSection {...aboutUsContent} serviceCards={serviceCards} />
   <ClientsSection {...clientsContent} />
+  <ScrollIndicator
+    href="#contact-us-section"
+    text="Descubre más"
+    id="scroll-to-contact"
+    linkClass="text-slate-400 hover:text-slate-900"
+  />
 </div>
-<div class="bg-accent-foreground w-full">
+<div class="w-full pt-20">
   <ContactSection {...contactSectionContent} />
 </div>

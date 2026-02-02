@@ -1,11 +1,14 @@
 ---
 import Chevron from 'src/components/Chevron.astro';
 import type { ClientsProps } from '../types/Clients';
+import ScrollIndicator from '@/components/ScrollIndicator.astro';
 
 const { sectionTitle, clients, sectionDescription } = Astro.props as ClientsProps;
 ---
 
-<section class="mx-auto w-[80vw] rounded-2xl border border-slate-200 bg-white pt-8 pb-4 shadow-lg">
+<section
+  class="relative mx-auto w-[80vw] rounded-2xl border border-slate-200 bg-white pt-8 pb-8 shadow-lg"
+>
   <h2 class="text-center text-3xl font-semibold text-slate-800">
     {sectionTitle}
   </h2>

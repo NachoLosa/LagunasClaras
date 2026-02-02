@@ -4,22 +4,19 @@ import type { ContactCard } from '../types/Contact';
 
 const colorStyles = {
   green: {
-    card: 'hover:shadow-green-500/10',
     icon: 'bg-green-500/20 text-green-600 ring-green-500/20',
   },
   blue: {
-    card: 'hover:shadow-blue-500/10',
     icon: 'bg-blue-500/20 text-blue-600 ring-blue-500/20',
   },
   slate: {
-    card: 'hover:shadow-slate-500/10',
     icon: 'bg-slate-500/20 text-slate-600 ring-slate-500/20',
   },
 };
 const { title, description, contactCards, cta } = Astro.props;
 ---
 
-<section class="bg-background relative">
+<section class="bg-background relative" id="contact-us-section">
   <div class="mx-auto w-[80vw] max-w-7xl rounded-2xl px-4 py-4 sm:px-6 lg:px-8 lg:py-8">
     <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
       <!-- Left col: Persuasive message -->
@@ -44,7 +41,7 @@ const { title, description, contactCards, cta } = Astro.props;
         {
           contactCards.map((card: ContactCard) => (
             <div
-              class={`group flex items-center gap-5 rounded-2xl border border-white/20 bg-white/40 p-5 shadow-xl ring-1 ring-white/10 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:bg-white/80 hover:shadow-2xl ${colorStyles[card.colorScheme].card}`}
+              class={`group bg-primary/10 flex items-center gap-5 rounded-2xl border border-white/20 p-5 shadow-xl ring-1 ring-white/10 backdrop-blur-xl`}
             >
               <div
                 class={`flex h-12 w-12 shrink-0 items-center justify-center rounded-lg ring-1 ${colorStyles[card.colorScheme].icon}`}
