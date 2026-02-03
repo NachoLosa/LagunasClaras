@@ -46,9 +46,9 @@ const { brandTitle, links } = content;
   const navbar = document.getElementById('navbar');
   const navLinks = document.querySelectorAll('.nav-link');
   const navTitle = document.getElementById('nav-title');
-
+  const isHomePage = window.location.pathname === '/';
   const updateNavbar = () => {
-    if (window.scrollY === 0) {
+    if (window.scrollY === 0 && isHomePage) {
       navbar?.classList.remove('bg-background', 'backdrop-blur', 'shadow-md');
       navbar?.classList.add('bg-transparent');
       navLinks.forEach((link) => {

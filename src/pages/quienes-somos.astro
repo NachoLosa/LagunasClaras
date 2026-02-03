@@ -1,8 +1,22 @@
 ---
-title: "Quienes Somos"
+import SeoHead from '../components/SeoHead.astro';
+import Layout from '../layouts/Layout.astro';
+
+const SeoContent = {
+  title: 'Quienes Somos | Lagunas Claras',
+  description:
+    'Más de 10 años dedicados al mantenimiento y recuperación de lagos y ecosistemas acuáticos, con soluciones eficientes y sin químicos.',
+};
 ---
 
-<main class="min-h-[60vh] py-12">
-  <h1 class="text-3xl font-bold text-primary mb-4">¿Quiénes Somos?</h1>
-  <p class="text-lg text-foreground/80">Aquí va la descripción de la empresa, misión, visión y valores.</p>
-</main>
+<Layout>
+  <SeoHead title={SeoContent.title} description={SeoContent.description} />
+  <Fragment slot="main">
+    <main class="bg-primary min-h-[60vh] py-12">
+      <h1 class="text-primary mb-4 text-3xl font-bold">¿Quiénes Somos?</h1>
+      <p class="text-foreground/80 text-lg">
+        {SeoContent.description}
+      </p>
+    </main>
+  </Fragment>
+</Layout>

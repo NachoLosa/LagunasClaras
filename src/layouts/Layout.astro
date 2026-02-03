@@ -1,4 +1,6 @@
 ---
+import Footer from '@/components/footer.astro';
+import Navbar from '@/components/navbar/navbar.astro';
 import '@/styles/global.css';
 
 interface Props {
@@ -35,7 +37,7 @@ const {
 
   <body class="bg-background text-foreground antialiased">
     <header>
-      <slot name="header" />
+      <Navbar />
     </header>
 
     <main id="main-content">
@@ -43,7 +45,7 @@ const {
     </main>
 
     <footer>
-      <slot name="footer" />
+      <Footer />
     </footer>
   </body>
 </html>

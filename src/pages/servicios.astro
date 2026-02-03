@@ -1,8 +1,22 @@
 ---
-title: "Servicios"
+import SeoHead from '@/components/SeoHead.astro';
+import Layout from '@/layouts/Layout.astro';
+
+const SeoContent = {
+  title: 'Servicios de mantenimiento de lagos y lagunas | Lagunas Claras',
+  description:
+    'Servicios profesionales de mantenimiento, limpieza y recuperación de lagos, lagunas y espejos de agua, cuidando el ecosistema.',
+};
 ---
 
-<main class="min-h-[60vh] py-12">
-  <h1 class="text-3xl font-bold text-primary mb-4">Servicios</h1>
-  <p class="text-lg text-foreground/80">Aquí se listan los servicios ofrecidos por Lagunas Claras.</p>
-</main>
+<Layout>
+  <SeoHead title={SeoContent.title} description={SeoContent.description} />
+  <Fragment slot="main">
+    <main class="min-h-[60vh] py-12">
+      <h1 class="text-primary mb-4 text-3xl font-bold">Servicios</h1>
+      <p class="text-foreground/80 text-lg">
+        Aquí se listan los servicios ofrecidos por Lagunas Claras.
+      </p>
+    </main>
+  </Fragment>
+</Layout>

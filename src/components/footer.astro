@@ -44,7 +44,9 @@ const FooterContent = {
           }
         </div>
       </div>
-      <div class="text-primary-foreground flex flex-col gap-3 text-base font-medium md:flex-col">
+      <div
+        class="text-primary-foreground flex flex-col gap-3 text-base font-medium sm:grid md:flex-col"
+      >
         {
           FooterContent.links.map((link) => (
             <a href={link.href} class="relative transition-colors hover:underline">

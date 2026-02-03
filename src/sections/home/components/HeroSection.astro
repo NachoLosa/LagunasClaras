@@ -1,9 +1,9 @@
 ---
 import CTAButton from '@/components/CTAButton.astro';
 import ScrollIndicator from '@/components/ScrollIndicator.astro';
-import heroImg from '@assets/HeroHolder.jpeg';
+import desktopImage from '@assets/hero-1920.webp';
+import mobileImage from '@assets/hero-768.webp';
 import type { HeroProps } from '../types/Hero';
-
 const { HeroTitle, HeroSubtitle, CTA, Discover } = Astro.props as HeroProps;
 ---
 
@@ -13,13 +13,20 @@ const { HeroTitle, HeroSubtitle, CTA, Discover } = Astro.props as HeroProps;
 >
   <div id="hero-sentinel" class="absolute top-0 h-1 w-full"></div>
   <!-- Background image -->
-  <div
-    class="absolute inset-0 bg-cover bg-center bg-no-repeat"
-    style={`background-image: url('${heroImg.src}');`}
-  >
-    <!-- Overlay -->
-    <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/20"></div>
-  </div>
+  <picture class="absolute inset-0 -z-10">
+    <source srcset={mobileImage.src} media="(max-width: 768px)" type="image/webp" />
+    <img
+      src={desktopImage.src}
+      alt=""
+      width="1920"
+      height="960"
+      class="h-full w-full object-cover"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </picture>
+  <!-- Overlay -->
+  <div class="absolute inset-0 bg-linear-to-b from-black/50 via-black/40 to-black/20"></div>
 
   <!-- Top spacer - maintains content centering -->
   <div class="h-20"></div>

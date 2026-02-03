@@ -1,8 +1,21 @@
 ---
-title: "Clientes"
+import SeoHead from '@/components/SeoHead.astro';
+import Layout from '@/layouts/Layout.astro';
+const SeoContent = {
+  title: 'Clientes que confían en nosotros | Lagunas Claras',
+  description:
+    'Empresas, municipios e instituciones de todo el país que confían en nuestros servicios de mantenimiento de lagos y espejos de agua.',
+};
 ---
 
-<main class="min-h-[60vh] py-12">
-  <h1 class="text-3xl font-bold text-primary mb-4">Clientes</h1>
-  <p class="text-lg text-foreground/80">Aquí se muestran los clientes destacados o testimonios.</p>
-</main>
+<Layout>
+  <SeoHead title={SeoContent.title} description={SeoContent.description} />
+  <Fragment slot="main">
+    <main class="min-h-[60vh] py-12">
+      <h1 class="text-primary mb-4 text-3xl font-bold">Clientes</h1>
+      <p class="text-foreground/80 text-lg">
+        Aquí se muestran los clientes destacados o testimonios.
+      </p>
+    </main>
+  </Fragment>
+</Layout>
