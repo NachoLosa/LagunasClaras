@@ -9,11 +9,11 @@ module.exports = {
   plugins: ['astro', 'prettier'],
   overrides: [
     {
-      files: ['*.astro'],
+      files: ['*.astro', '*.ts', '*.tsx', '*.js', '*.jsx'],
       parser: 'astro-eslint-parser',
       parserOptions: {
         parser: '@typescript-eslint/parser',
-        extraFileExtensions: ['.astro'],
+        extraFileExtensions: ['.astro', '.js', '.jsx', '.ts', '.tsx'],
       },
       rules: {
         'prettier/prettier': 'warn',
