@@ -1,6 +1,6 @@
 ---
+import Button from '@/components/Button.astro';
 import ContactCardsList from '@/components/ContactCardsList.astro';
-import CTAButton from '@/components/CTAButton.astro';
 import MapIframe from '@/components/MapIframe.astro';
 
 const { title, description, contactCards, cta } = Astro.props;
@@ -22,7 +22,7 @@ const { title, description, contactCards, cta } = Astro.props;
           </p>
         </div>
         <div>
-          <CTAButton href="/contacto"> {cta} </CTAButton>
+          <Button href="/contacto" icon> {cta} </Button>
         </div>
       </div>
 

@@ -1,5 +1,5 @@
 ---
-import CTAButton from '@/components/CTAButton.astro';
+import Button from '@/components/Button.astro';
 import ScrollIndicator from '@/components/ScrollIndicator.astro';
 import desktopImage from '@assets/hero-1920.webp';
 import mobileImage from '@assets/hero-768.webp';
@@ -47,18 +47,11 @@ const { HeroTitle, HeroSubtitle, CTA, Discover } = Astro.props as HeroProps;
       </p>
       <div class="animate-fade-up fade-up-cta flex flex-col justify-start gap-4 pt-12 sm:flex-row">
         {
-          CTA.map((cta: { text: string; href: string; style: string }) =>
-            cta.style === 'primary' ? (
-              <CTAButton href={cta.href}>{cta.text}</CTAButton>
-            ) : (
-              <a
-                href={cta.href}
-                class="text-primary-foreground/80 hover:text-primary-foreground inline-flex items-center justify-center rounded-xl px-8 py-3 text-lg font-medium underline-offset-4 transition-all hover:-translate-y-0.5 hover:underline"
-              >
-                {cta.text}
-              </a>
-            )
-          )
+          CTA.map((cta: { text: string; href: string; style: string }) => (
+            <Button href={cta.href} icon variant={cta.style}>
+              {cta.text}
+            </Button>
+          ))
         }
       </div>
     </div>
