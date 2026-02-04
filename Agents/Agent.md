@@ -23,6 +23,8 @@ Do NOT redefine visual rules here.
 5. Interactivity is isolated using Islands
 6. Minimal JavaScript by default
 7. Design tokens are mandatory (see DESIGN.md)
+8. Use semantic Tailwind tokens
+9. Always first check global.css for styles
 
 Astro is NOT React.  
 Do not force React patterns unless strictly required.

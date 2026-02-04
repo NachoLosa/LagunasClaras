@@ -1,4 +1,5 @@
 ---
+import Breadcrumb from '@/components/Breadcrumb.astro';
 import ContactCardsList from '@/components/ContactCardsList.astro';
 import MapIframe from '@/components/MapIframe.astro';
 import SeoHead from '@/components/SeoHead.astro';
@@ -15,13 +16,15 @@ const PageContent = {
   description:
     'Completá el formulario y nos pondremos en contacto a la brevedad para atender tu consulta',
 };
+const pathName = Astro.url.pathname;
 ---
 
 <Layout>
   <SeoHead title={SeoContent.title} description={SeoContent.description} />
   <Fragment slot="main">
+    <Breadcrumb items={[{ label: 'Contacto', href: pathName }]} className={'mt-24 pl-16'} />
     <div
-      class="from-primary/10 mx-auto mt-24 mb-16 max-w-7xl rounded-2xl border border-slate-200 bg-linear-to-br to-green-500/10 px-4 py-8 shadow-xl sm:px-6 lg:px-8"
+      class="from-primary/10 mx-auto mb-16 max-w-7xl rounded-2xl border border-slate-200 bg-linear-to-br to-green-500/10 px-4 py-8 shadow-xl sm:px-6 lg:px-8"
     >
       <!-- Header Section -->
       <div class="mb-8 text-center">

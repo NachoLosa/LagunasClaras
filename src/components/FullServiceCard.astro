@@ -1,0 +1,155 @@
+---
+import { clsx } from 'clsx';
+import Chevron from './Chevron.astro';
+interface Props {
+  id: string;
+  title: string;
+  description: string;
+  image?: string;
+  resumeVideo?: string;
+  video?: string;
+  features?: string[];
+  specialty?: string;
+  imagePosition?: 'left' | 'right';
+  variant?: 'default' | 'primary';
+}
+
+const {
+  id,
+  title,
+  description,
+  image,
+  resumeVideo,
+  video,
+  features = [],
+  specialty,
+  imagePosition = 'left',
+  variant = 'default',
+} = Astro.props;
+
+// Helper function to convert YouTube URL to embed URL
+function getYouTubeEmbedUrl(url: string): string | null {
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+  const match = url.match(regExp);
+  if (match && match[2].length === 11) {
+    return `https://www.youtube.com/embed/${match[2]}`;
+  }
+  return null;
+}
+
+function isYouTubeUrl(url: string): boolean {
+  return url.includes('youtube.com') || url.includes('youtu.be');
+}
+
+const isImageLeft = imagePosition === 'left';
+---
+
+<article
+  class={clsx(
+    'overflow-hidden p-6 md:p-8 lg:p-10 transition-colors',
+    variant === 'primary' ? 'bg-primary/20' : 'bg-card'
+  )}
+>
+  <div
+    class={clsx(
+      'flex flex-col gap-6 md:gap-8 lg:flex-row lg:items-center',
+      isImageLeft ? 'lg:flex-row' : 'lg:flex-row-reverse'
+    )}
+  >
+    <!-- Media Section -->
+    <div class="w-full lg:w-1/2">
+      {
+        resumeVideo ? (
+          isYouTubeUrl(resumeVideo) ? (
+            <div class="overflow-hidden rounded-xl shadow-lg">
+              <iframe
+                src={getYouTubeEmbedUrl(resumeVideo)}
+                class="aspect-video h-full w-full"
+                allowfullscreen
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                title={`Resume video: ${title}`}
+              />
+            </div>
+          ) : (
+            <div class="overflow-hidden rounded-xl shadow-lg">
+              <video
+                src={resumeVideo}
+                class="h-full w-full object-cover"
+                controls
+                preload="metadata"
+              >
+                <track kind="captions" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          )
+        ) : image ? (
+          <div class="overflow-hidden rounded-xl shadow-lg">
+            <img
+              src={image}
+              alt={title}
+              class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+            />
+          </div>
+        ) : (
+          <div class="bg-muted flex h-64 items-center justify-center rounded-xl">
+            <span class="text-muted-foreground">No image available</span>
+          </div>
+        )
+      }
+    </div>
+
+    <!-- Content Section -->
+    <div class="w-full lg:w-1/2">
+      {
+        specialty && (
+          <p class="text-primary mb-2 text-xs font-semibold tracking-wider uppercase">
+            {specialty}
+          </p>
+        )
+      }
+      <h3 class="text-foreground mb-4 text-2xl font-bold md:text-3xl">
+        {title}
+      </h3>
+      <p class="text-muted-foreground mb-6 leading-relaxed">{description}</p>
+
+      {
+        features && features.length > 0 && (
+          <ul class="space-y-3">
+            {features.map((feature) => (
+              <li class="flex items-start gap-3">
+                <svg
+                  class="text-primary mt-1 h-5 w-5 shrink-0"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <span class="text-foreground">{feature}</span>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+      {
+        video !== '' && (
+          <button
+            data-video-trigger
+            data-video-src={video}
+            data-video-id={id}
+            class="text-primary hover:text-primary/80 flex cursor-pointer flex-row items-center gap-2 pt-6 font-semibold transition-colors"
+            aria-label={`Ver video de ${title}`}
+          >
+            Ver video <Chevron direction="right" class="h-4 w-4" />
+          </button>
+        )
+      }
+    </div>
+  </div>
+</article>

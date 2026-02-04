@@ -1,5 +1,9 @@
 ---
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import FullServiceCard from '@/components/FullServiceCard.astro';
 import SeoHead from '@/components/SeoHead.astro';
+import VideoModal from '@/components/VideoModal.astro';
+import { servicesMock } from '@/data/servicesMock';
 import Layout from '@/layouts/Layout.astro';
 
 const SeoContent = {
@@ -7,16 +11,50 @@ const SeoContent = {
   description:
     'Servicios profesionales de mantenimiento, limpieza y recuperación de lagos, lagunas y espejos de agua, cuidando el ecosistema.',
 };
+
+const breadcrumbItems = [{ label: 'Servicios' }];
 ---
 
 <Layout>
   <SeoHead title={SeoContent.title} description={SeoContent.description} />
   <Fragment slot="main">
-    <main class="min-h-[60vh] py-12">
-      <h1 class="text-primary mb-4 text-3xl font-bold">Servicios</h1>
-      <p class="text-foreground/80 text-lg">
-        Aquí se listan los servicios ofrecidos por Lagunas Claras.
-      </p>
+    <main class="bg-background mt-24 min-h-screen w-full pb-24">
+      <div>
+        <!-- Header Section -->
+        <div class="mb-12 px-10">
+          <!-- Breadcrumb -->
+          <Breadcrumb items={breadcrumbItems} />
+          <h1 class="text-primary mb-4 text-4xl font-bold md:text-5xl">Nuestros Servicios</h1>
+          <p class="text-muted-foreground max-w-3xl text-lg leading-relaxed">
+            Soluciones ecológicas y profesionales diseñadas para restaurar y mantener el equilibrio
+            natural de sus cuerpos de agua.
+          </p>
+        </div>
+
+        <!-- Services Grid -->
+        <div class="flex flex-col">
+          {
+            servicesMock.map((service, index: number) => {
+              const isEven = index % 2 === 0;
+              return (
+                <FullServiceCard
+                  id={service.id}
+                  title={service.title}
+                  description={service.description}
+                  image={service.image}
+                  resumeVideo={service.resumeVideo}
+                  video={service.video}
+                  features={service.features}
+                  specialty={service.specialty}
+                  imagePosition={isEven ? 'left' : 'right'}
+                  variant={isEven ? 'default' : 'primary'}
+                />
+              );
+            })
+          }
+        </div>
+      </div>
+      <VideoModal />
     </main>
   </Fragment>
 </Layout>

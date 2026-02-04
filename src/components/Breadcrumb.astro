@@ -1,0 +1,52 @@
+---
+import clsx from 'clsx';
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+  className?: string;
+}
+
+const { items, className } = Astro.props;
+---
+
+<nav aria-label="Breadcrumb" class={clsx('mb-6', className)}>
+  <ol class="flex items-center gap-2 text-sm">
+    <li class="flex items-center gap-2">
+      <a href="/" class="text-muted-foreground hover:text-foreground transition-colors"> Inicio </a>
+    </li>
+    {
+      items.map((item, index) => (
+        <li class="flex items-center gap-2">
+          <span class="text-muted-foreground">{'>'}</span>
+          {item.href ? (
+            <a
+              href={item.href}
+              class={clsx(
+                index === items.length - 1
+                  ? 'text-primary font-bold'
+                  : 'text-muted-foreground hover:text-foreground transition-colors'
+              )}
+            >
+              {item.label}
+            </a>
+          ) : (
+            <span
+              class={clsx(
+                index === items.length - 1
+                  ? 'text-primary font-bold'
+                  : 'text-muted-foreground hover:text-foreground transition-colors'
+              )}
+            >
+              {item.label}
+            </span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>

@@ -1,5 +1,5 @@
 ---
-import type { NavbarContent } from './types.types';
+import type { NavbarContent } from './navbar.types';
 
 const content: NavbarContent = {
   brandTitle: 'Lagunas Claras',
@@ -14,6 +14,7 @@ const content: NavbarContent = {
 };
 
 const { brandTitle, links } = content;
+const currentPath = Astro.url.pathname;
 ---
 
 <!-- TODO: Make hamburguer menu? 
@@ -33,13 +34,21 @@ FIXME: Responsive
     <!-- Navigation Links -->
     <ul class="flex gap-6 text-base font-medium">
       {
-        links.map((link) => (
-          <li class="group transition-all duration-300 hover:translate-y-2 hover:scale-110">
-            <a href={link.href} class="nav-link">
-              {link.title}
-            </a>
-          </li>
-        ))
+        links.map((link) => {
+          const isActive =
+            link.href === '/' ? currentPath === '/' : currentPath.includes(link.href);
+          return (
+            <li class="group transition-all duration-300 hover:translate-y-2 hover:scale-110">
+              <a
+                href={link.href}
+                class={`nav-link ${isActive ? 'active' : ''}`}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                {link.title}
+              </a>
+            </li>
+          );
+        })
       }
     </ul>
   </div>

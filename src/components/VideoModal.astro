@@ -1,0 +1,117 @@
+<div
+  id="video-modal"
+  class="bg-foreground/70 fixed inset-0 z-50 hidden items-center justify-center backdrop-blur-sm"
+>
+  <div class="bg-card relative w-[90vw] max-w-4xl overflow-hidden rounded-2xl shadow-2xl">
+    <button
+      id="video-close"
+      class="bg-foreground/10 text-foreground hover:bg-foreground/20 absolute top-4 right-4 z-10 flex h-8 w-8 items-center justify-center rounded-full text-xl transition-colors"
+      aria-label="Cerrar video"
+    >
+      ✕
+    </button>
+
+    <div id="video-container" class="aspect-video w-full bg-black"></div>
+  </div>
+</div>
+
+<script>
+  interface VideoTrigger extends HTMLElement {
+    dataset: {
+      videoSrc?: string;
+      videoId?: string;
+    };
+  }
+
+  const modal = document.getElementById('video-modal') as HTMLDivElement | null;
+  const container = document.getElementById('video-container') as HTMLDivElement | null;
+  const closeBtn = document.getElementById('video-close') as HTMLButtonElement | null;
+
+  if (!modal || !container || !closeBtn) {
+    console.error('Video modal elements not found');
+  } else {
+    // Function to convert YouTube URL to embed URL
+    function getYouTubeEmbedUrl(url: string): string | null {
+      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+      const match = url.match(regExp);
+      if (match && match[2].length === 11) {
+        return `https://www.youtube.com/embed/${match[2]}?autoplay=1`;
+      }
+      return null;
+    }
+
+    // Function to check if URL is a YouTube URL
+    function isYouTubeUrl(url: string): boolean {
+      return url.includes('youtube.com') || url.includes('youtu.be');
+    }
+
+    // Open modal
+    document.addEventListener('click', (e: MouseEvent) => {
+      const target = e?.target as HTMLElement | null;
+      if (!target) return;
+
+      const trigger = target.closest<VideoTrigger>('[data-video-trigger]');
+      if (!trigger) return;
+
+      e.preventDefault();
+      const src = trigger.dataset.videoSrc;
+      if (!src) return;
+
+      container.innerHTML = '';
+
+      if (isYouTubeUrl(src)) {
+        const embedUrl = getYouTubeEmbedUrl(src);
+        if (!embedUrl) {
+          console.error('Invalid YouTube URL');
+          return;
+        }
+
+        const iframe = document.createElement('iframe');
+        iframe.src = embedUrl;
+        iframe.className = 'h-full w-full';
+        iframe.setAttribute('allowfullscreen', '');
+        iframe.setAttribute(
+          'allow',
+          'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+        );
+        container.appendChild(iframe);
+      } else {
+        const video = document.createElement('video');
+        video.src = src;
+        video.className = 'h-full w-full';
+        video.controls = true;
+        video.autoplay = true;
+        container.appendChild(video);
+      }
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    });
+
+    // Close modal function
+    function closeModal() {
+      if (!modal || !container) return;
+
+      container.innerHTML = '';
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // Close button click
+    closeBtn.addEventListener('click', closeModal);
+
+    // Click outside to close
+    modal.addEventListener('click', (e: MouseEvent) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // ESC key to close
+    document.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+  }
+</script>

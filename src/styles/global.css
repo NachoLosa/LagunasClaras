@@ -168,7 +168,9 @@
     background: linear-gradient(to right, theme(--color-primary), theme(--color-accent));
     transition: transform 500ms ease-in-out;
   }
-
+  .nav-link.active::after {
+    transform: scaleX(1);
+  }
   .group:hover .nav-link::after {
     transform: scaleX(1);
   }
