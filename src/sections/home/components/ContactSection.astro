@@ -1,18 +1,8 @@
 ---
+import ContactCardsList from '@/components/ContactCardsList.astro';
 import CTAButton from '@/components/CTAButton.astro';
-import type { ContactCard } from '../types/Contact';
+import MapIframe from '@/components/MapIframe.astro';
 
-const colorStyles = {
-  green: {
-    icon: 'bg-green-500/20 text-green-600 ring-green-500/20',
-  },
-  blue: {
-    icon: 'bg-blue-500/20 text-blue-600 ring-blue-500/20',
-  },
-  slate: {
-    icon: 'bg-slate-500/20 text-slate-600 ring-slate-500/20',
-  },
-};
 const { title, description, contactCards, cta } = Astro.props;
 ---
 
@@ -37,40 +27,13 @@ const { title, description, contactCards, cta } = Astro.props;
       </div>
 
       <!-- Right col: Contact Cards -->
-      <div class="flex flex-col gap-4">
-        {
-          contactCards.map((card: ContactCard) => (
-            <div
-              class={`group bg-primary/10 flex items-center gap-5 rounded-2xl border border-white/20 p-5 shadow-xl ring-1 ring-white/10 backdrop-blur-xl`}
-            >
-              <div
-                class={`flex h-12 w-12 shrink-0 items-center justify-center rounded-lg ring-1 ${colorStyles[card.colorScheme].icon}`}
-              >
-                <card.icon class="h-6 w-6" />
-              </div>
-              <div>
-                <h3 class="font-semibold text-slate-800">{card.title}</h3>
-                <p class="text-sm text-slate-600">{card.description}</p>
-              </div>
-            </div>
-          ))
-        }
-      </div>
+      <ContactCardsList cards={contactCards} />
     </div>
     <!-- Map Section -->
     <div
       class="group mt-16 overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 shadow-inner transition-all duration-500 hover:shadow-lg"
     >
-      <div class="relative h-72 w-full md:h-80">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3291.956693522271!2d-58.583!3d-34.425!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzTCsDI1JzMwLjAiUyA1OMKwMzUnMDAuMCJX!5e0!3m2!1sen!2sar!4v1234567890"
-          width="100%"
-          height="100%"
-          style="border:0;"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div>
+      <MapIframe className={'relative h-72 w-full md:h-80'} />
     </div>
   </div>
 </section>

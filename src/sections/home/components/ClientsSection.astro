@@ -1,14 +1,11 @@
 ---
 import Chevron from 'src/components/Chevron.astro';
 import type { ClientsProps } from '../types/Clients';
-import ScrollIndicator from '@/components/ScrollIndicator.astro';
 
 const { sectionTitle, clients, sectionDescription } = Astro.props as ClientsProps;
 ---
 
-<section
-  class="relative mx-auto w-[80vw] rounded-2xl border border-slate-200 bg-white pt-8 pb-8 shadow-lg"
->
+<section class="relative mx-auto w-[80vw] rounded-2xl pb-4">
   <h2 class="text-center text-3xl font-semibold text-slate-800">
     {sectionTitle}
   </h2>
@@ -21,23 +18,23 @@ const { sectionTitle, clients, sectionDescription } = Astro.props as ClientsProp
     <Chevron
       id="clients-prev"
       direction="left"
-      class="absolute top-1/2 left-0 z-10 h-10 w-10 -translate-y-1/2 cursor-pointer text-slate-600 hover:text-slate-900"
+      class="text-foreground hover:text-primary absolute top-1/2 left-0 z-10 h-10 w-10 -translate-y-1/2 animate-bounce cursor-pointer transition-all duration-300"
     />
 
     <!-- Track -->
     <div
       id="clients-track"
-      class="flex items-center gap-6 overflow-x-auto scroll-smooth px-8 sm:px-10 md:overflow-x-hidden md:px-12"
+      class="flex items-center gap-6 overflow-x-auto scroll-smooth px-8 sm:px-10 md:overflow-x-hidden md:px-12 lg:px-12"
     >
       {
         clients.map((client) => (
-          <div class="group hover:bg-background my-4 w-40 shrink-0 rounded-2xl border bg-gray-400 transition group-hover:opacity-100 hover:-translate-y-1 hover:border-none">
+          <div class="group my-4 w-40 shrink-0 rounded-2xl transition group-hover:opacity-100 hover:-translate-y-1 hover:border-none">
             <div class="flex aspect-4/3 items-center justify-center bg-none py-6">
               <img
                 src={client.imageUrl}
                 alt={client.alt}
                 loading="lazy"
-                class="h-28 w-32 object-contain opacity-80 grayscale transition group-hover:opacity-100 group-hover:grayscale-0"
+                class="h-28 w-32 object-contain transition"
               />
             </div>
           </div>
@@ -49,7 +46,7 @@ const { sectionTitle, clients, sectionDescription } = Astro.props as ClientsProp
     <Chevron
       id="clients-next"
       direction="right"
-      class="absolute top-1/2 right-0 z-10 h-10 w-10 -translate-y-1/2 cursor-pointer text-slate-600 hover:text-slate-900"
+      class="text-foreground hover:text-primary absolute top-1/2 right-0 z-10 h-10 w-10 -translate-y-1/2 animate-bounce cursor-pointer transition-all duration-300"
     />
   </div>
 </section>

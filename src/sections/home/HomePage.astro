@@ -1,9 +1,9 @@
 ---
-import { DropMagnifying, Mail, Pin, ShieldEngine, WaterReclying, WhatsApp } from '@icons';
+import { DropMagnifying, ShieldEngine, WaterReclying } from '@icons';
 import AboutUsSection from './components/AboutUsSection.astro';
 import ClientsSection from './components/ClientsSection.astro';
 import HeroSection from './components/HeroSection.astro';
-import type { AboutUsProps } from './types/AboutUs';
+import type { AboutUsProps } from './types/aboutUs';
 import type { ClientsProps } from './types/Clients';
 import type { ContactSectionProps } from './types/Contact';
 import type { HeroProps } from './types/Hero';
@@ -135,31 +135,11 @@ const contactSectionContent: ContactSectionProps = {
   description:
     'Contanos tu necesidad y nuestro equipo te asesora sin cargo con una solución adaptada a tu entorno.',
   cta: 'Contactanos',
-  contactCards: [
-    {
-      title: 'WhatsApp',
-      description: 'Respuesta rápida y directa',
-      icon: WhatsApp,
-      colorScheme: 'green',
-    },
-    {
-      title: 'Email',
-      description: 'Contacto formal y presupuestos',
-      icon: Mail,
-      colorScheme: 'blue',
-    },
-    {
-      title: 'Tigre, Buenos Aires',
-      description: 'Atendemos en todo el país',
-      icon: Pin,
-      colorScheme: 'slate',
-    },
-  ],
 };
 ---
 
 <HeroSection {...heroContent} />
-<div class="flex min-h-[calc(100vh-80px)] flex-col items-center justify-center gap-4 pt-16">
+<div class="flex min-h-[calc(100vh-80px)] flex-col items-center justify-center gap-2 pt-16">
   <AboutUsSection {...aboutUsContent} serviceCards={serviceCards} />
   <ClientsSection {...clientsContent} />
   <ScrollIndicator

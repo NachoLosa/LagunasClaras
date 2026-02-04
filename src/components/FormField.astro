@@ -1,0 +1,85 @@
+---
+import type { fieldOptionsProps, fieldProps } from '@/sections/contactUs/types/contact';
+
+const { field } = Astro.props as { field: fieldProps };
+---
+
+<div class="flex flex-col gap-1">
+  <label for={field.name} class="form-label" title={field.name}>
+    {field.label}
+    {
+      field.required && (
+        <span class="text-red-500" title="Campo obligatorio">
+          *
+        </span>
+      )
+    }
+  </label>
+  {
+    (field.type === 'text' || field.type === 'email' || field.type === 'tel') && (
+      <input
+        type={field.type}
+        id={field.name}
+        name={field.name}
+        class="form-input"
+        placeholder={field.placeholder}
+      />
+    )
+  }
+  {
+    field.type === 'textarea' && (
+      <textarea
+        id={field.name}
+        name={field.name}
+        rows="3"
+        class="form-input"
+        placeholder={field.placeholder}
+      />
+    )
+  }
+
+  {
+    field.type === 'select' && (
+      <select id={field.name} name={field.name} class="form-input">
+        <option value="">Seleccionar</option>
+        {field.options?.map((option: fieldOptionsProps) => (
+          <option value={option.value}>{option.label}</option>
+        ))}
+      </select>
+    )
+  }
+
+  {
+    field.type === 'radio' && (
+      <div class="flex flex-wrap gap-3">
+        {field.options?.map((option) => (
+          <label class="radio-pill-label">
+            <input type="radio" name={field.name} value={option.value} class="radio-pill-input" />
+            <span class="radio-pill-text">{option.label}</span>
+          </label>
+        ))}
+      </div>
+    )
+  }
+
+  {
+    field.type === 'checkbox' && (
+      <div class="flex flex-wrap gap-3">
+        {field.options?.map((option) => (
+          <label class="checkbox-pill-label">
+            <input
+              type="checkbox"
+              name={field.name}
+              value={option.value}
+              class="checkbox-pill-input"
+            />
+            <span class="checkbox-pill-text">{option.label}</span>
+          </label>
+        ))}
+      </div>
+    )
+  }
+
+  <!-- Error message container - populated dynamically via JavaScript -->
+  <span class="error-message text-error hidden text-sm" data-error-for={field.name}></span>
+</div>

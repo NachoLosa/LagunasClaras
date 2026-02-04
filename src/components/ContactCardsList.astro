@@ -1,0 +1,64 @@
+---
+import { Mail, Pin, WhatsApp } from './icons';
+
+export interface ContactCard {
+  title: string;
+  description: string;
+  icon: any;
+  href?: string;
+  colorScheme: 'green' | 'blue' | 'slate';
+}
+
+const colorStyles = {
+  green: {
+    icon: 'bg-green-500/20 text-green-600 ring-green-500/20',
+  },
+  blue: {
+    icon: 'bg-blue-500/20 text-blue-600 ring-blue-500/20',
+  },
+  slate: {
+    icon: 'bg-slate-500/20 text-slate-600 ring-slate-500/20',
+  },
+};
+
+const cards: ContactCard[] = [
+  {
+    title: 'WhatsApp',
+    description: '+54 9 11 5045 1158',
+    icon: WhatsApp,
+    colorScheme: 'green',
+  },
+  {
+    title: 'Email',
+    description: 'lagunasclaras@gmail.com',
+    icon: Mail,
+    colorScheme: 'blue',
+  },
+  {
+    title: 'Ubicación',
+    description: 'Aristóbulo del Valle 4591, Tigre, Buenos Aires, Argentina',
+    icon: Pin,
+    colorScheme: 'slate',
+  },
+];
+---
+
+<div class="flex flex-col gap-4">
+  {
+    cards.map((card: ContactCard) => (
+      <div
+        class={`group bg-card flex items-center gap-5 rounded-2xl border border-white/20 p-5 shadow-xl ring-1 ring-white/10 backdrop-blur-xl`}
+      >
+        <div
+          class={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full ring-1 ${colorStyles[card.colorScheme].icon}`}
+        >
+          <card.icon class="h-6 w-6" />
+        </div>
+        <div>
+          <p class="text-sm text-slate-800">{card.title}</p>
+          <h3 class="text-primary font-semibold">{card.description}</h3>
+        </div>
+      </div>
+    ))
+  }
+</div>

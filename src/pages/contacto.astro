@@ -1,30 +1,48 @@
 ---
-import ContactForm from '@/components/ContactForm.astro';
+import ContactCardsList from '@/components/ContactCardsList.astro';
+import MapIframe from '@/components/MapIframe.astro';
 import SeoHead from '@/components/SeoHead.astro';
 import Layout from '@/layouts/Layout.astro';
+import ContactForm from '@/sections/contactUs/components/ContactForm.astro';
 
 const SeoContent = {
   title: 'Contacto | Lagunas Claras',
   description:
     'Contactanos para recibir asesoramiento y presupuestos sin cargo sobre mantenimiento y recuperación de lagos y espejos de agua.',
 };
+const PageContent = {
+  title: 'Contactanos',
+  description:
+    'Completá el formulario y nos pondremos en contacto a la brevedad para atender tu consulta',
+};
 ---
 
 <Layout>
   <SeoHead title={SeoContent.title} description={SeoContent.description} />
   <Fragment slot="main">
-    <div class="bg-primary/50 mx-auto h-[90vh] max-w-7xl px-4">
+    <div
+      class="from-primary/10 mx-auto mt-24 mb-16 max-w-7xl rounded-2xl border border-slate-200 bg-linear-to-br to-green-500/10 px-4 py-8 shadow-xl sm:px-6 lg:px-8"
+    >
       <!-- Header Section -->
-      <div class="mb-12 text-center">
-        <h1 class="text-primary mb-4 text-4xl font-bold md:text-5xl">Conectate con nosotros</h1>
-        <p class="text-muted-foreground mx-auto max-w-2xl text-lg">
-          Completá el formulario y nos pondremos en contacto a la brevedad para atender tu consulta
+      <div class="mb-8 text-center">
+        <h1 class="text-primary mb-4 text-4xl font-bold md:text-5xl">{PageContent.title}</h1>
+        <p class="text-muted-background mx-auto max-w-2xl text-lg">
+          {PageContent.description}
         </p>
       </div>
 
-      <!-- Form Section -->
-      <div class="bg-card border-border rounded-2xl border p-6 shadow-xl md:p-10">
-        <ContactForm />
+      <!-- Main Content: Form + Contact Info -->
+      <div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-6">
+        <!-- Form Section (larger on desktop) -->
+        <div class="w-full lg:w-[65%]">
+          <ContactForm {...PageContent} />
+        </div>
+
+        <!-- Contact Info Section (smaller on desktop, full width on mobile/tablet) -->
+        <div class="flex w-full flex-col gap-6 lg:w-[35%]">
+          <ContactCardsList />
+          <MapIframe className="h-60 w-full overflow-hidden rounded-2xl" />
+        </div>
       </div>
     </div>
   </Fragment>

@@ -24,7 +24,7 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
+  --color-error: var(--error);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -46,99 +46,103 @@
 :root {
   --radius: 0.625rem;
 
-  /* Neutrals */
-  --background: hsl(210 30% 98%); /* blanco frío */
-  --foreground: hsl(215 30% 15%); /* texto principal azul oscuro */
+  /* ===== Layout layers ===== */
+  --background: hsl(210 25% 96%); /* white-smoke base */
+  --surface: hsl(210 25% 97.5%); /* section bands */
+  --foreground: hsl(215 30% 15%); /* main text */
 
-  --card: hsl(210 30% 97%);
+  /* ===== Surfaces ===== */
+  --card: hsl(0 0% 100%); /* pure white */
   --card-foreground: hsl(215 30% 15%);
 
-  --popover: hsl(210 30% 99%);
+  --popover: hsl(0 0% 100%);
   --popover-foreground: hsl(215 30% 15%);
 
-  /* Primary – Azul agua */
+  /* ===== Brand ===== */
   --primary: hsl(210 80% 45%);
   --primary-foreground: hsl(210 40% 98%);
-  --primary-background: hsl(210 60% 95%);
+  --primary-soft: hsl(210 80% 95%);
 
-  /* Secondary – Celeste suave */
   --secondary: hsl(210 60% 90%);
   --secondary-foreground: hsl(215 30% 20%);
 
-  /* Accent – Verde ecológico */
   --accent: hsl(145 55% 45%);
   --accent-foreground: hsl(145 40% 96%);
+  --accent-soft: hsl(145 55% 94%);
 
-  /* Muted */
-  --muted: hsl(210 20% 90%);
+  /* ===== Muted & system ===== */
+  --muted: hsl(210 20% 92%);
   --muted-foreground: hsl(215 15% 40%);
 
-  /* System */
-  --destructive: hsl(4 70% 50%);
-  --destructive-foreground: hsl(0 0% 100%);
+  --error: hsl(4 70% 50%);
+  --error-foreground: hsl(0 0% 100%);
   --border: hsl(210 20% 85%);
   --input: hsl(210 20% 92%);
   --ring: hsl(210 80% 45%);
 
-  /* Charts (unchanged) */
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-
-  /* Sidebar */
-  --sidebar: hsl(210 30% 98%);
+  /* ===== Sidebar ===== */
+  --sidebar: hsl(210 25% 96%);
   --sidebar-foreground: hsl(215 30% 15%);
   --sidebar-primary: hsl(210 80% 45%);
   --sidebar-primary-foreground: hsl(210 40% 98%);
-  --sidebar-accent: hsl(210 60% 92%);
+  --sidebar-accent: hsl(210 25% 94%);
   --sidebar-accent-foreground: hsl(215 30% 20%);
   --sidebar-border: hsl(210 20% 85%);
   --sidebar-ring: hsl(210 80% 45%);
 }
 
 .dark {
-  --background: hsl(215 30% 10%);
-  --foreground: hsl(210 40% 98%);
+  /* ===== Layout layers ===== */
+  --background: hsl(215 30% 9%); /* page base */
+  --surface: hsl(215 30% 11%); /* section bands */
+  --foreground: hsl(210 40% 96%);
 
-  --card: hsl(215 30% 13%);
-  --card-foreground: hsl(210 40% 98%);
+  /* ===== Surfaces ===== */
+  --card: hsl(215 30% 14%);
+  --card-foreground: hsl(210 40% 96%);
 
-  --popover: hsl(215 30% 12%);
-  --popover-foreground: hsl(210 40% 98%);
+  --popover: hsl(215 30% 13%);
+  --popover-foreground: hsl(210 40% 96%);
 
+  /* ===== Brand ===== */
   --primary: hsl(210 80% 60%);
   --primary-foreground: hsl(215 30% 10%);
+  --primary-soft: hsl(210 80% 18%);
 
-  --secondary: hsl(210 40% 25%);
-  --secondary-foreground: hsl(210 40% 98%);
+  --secondary: hsl(210 40% 22%);
+  --secondary-foreground: hsl(210 40% 96%);
 
   --accent: hsl(145 55% 55%);
   --accent-foreground: hsl(215 30% 10%);
+  --accent-soft: hsl(145 55% 18%);
 
-  --muted: hsl(215 20% 25%);
-  --muted-foreground: hsl(210 20% 60%);
+  /* ===== Muted & system ===== */
+  --muted: hsl(215 20% 22%);
+  --muted-foreground: hsl(210 20% 65%);
 
-  --destructive: hsl(4 70% 40%);
-  --destructive-foreground: hsl(0 0% 100%);
-  --border: hsl(215 20% 30%);
+  --error: hsl(4 70% 45%);
+  --error-foreground: hsl(0 0% 100%);
+  --border: hsl(215 20% 28%);
   --input: hsl(215 20% 20%);
   --ring: hsl(210 80% 60%);
 
-  --sidebar: hsl(215 30% 12%);
-  --sidebar-foreground: hsl(210 40% 98%);
+  /* ===== Sidebar ===== */
+  --sidebar: hsl(215 30% 11%);
+  --sidebar-foreground: hsl(210 40% 96%);
   --sidebar-primary: hsl(210 80% 60%);
   --sidebar-primary-foreground: hsl(215 30% 10%);
-  --sidebar-accent: hsl(215 30% 18%);
-  --sidebar-accent-foreground: hsl(210 40% 98%);
-  --sidebar-border: hsl(215 20% 30%);
+  --sidebar-accent: hsl(215 30% 17%);
+  --sidebar-accent-foreground: hsl(210 40% 96%);
+  --sidebar-border: hsl(215 20% 28%);
   --sidebar-ring: hsl(210 80% 60%);
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    body {
+      background-color: var(--background);
+    }
   }
   * {
     @apply border-border outline-ring/50;
@@ -170,7 +174,7 @@
   }
 
   .service-card {
-    @apply relative overflow-hidden rounded-2xl p-[2px] transition-transform duration-300 hover:-translate-y-2 hover:scale-105;
+    @apply bg-primary/50 relative overflow-hidden rounded-2xl p-[2px] transition-transform duration-300 hover:-translate-y-2 hover:scale-105;
   }
 
   .service-card::before {
@@ -217,5 +221,63 @@
 
   .service-card:hover .service-card__inner {
     @apply shadow-md;
+  }
+
+  .form-label {
+    @apply mb-2 text-sm font-medium text-gray-700;
+  }
+
+  .form-input {
+    @apply rounded-md border border-gray-300 px-3 py-1 transition-all duration-200 focus:ring-2 focus:ring-blue-500 focus:outline-none;
+  }
+
+  .form-input[data-error='true'] {
+    border-color: var(--error);
+    border-width: 2px;
+    outline-color: var(--error);
+  }
+
+  .form-input[data-error='true']:focus {
+    border-color: var(--error);
+    border-width: 2px;
+    outline-color: var(--error);
+    @apply ring-error ring-2;
+  }
+
+  /* Radio and Checkbox Pills */
+  .radio-pill-label,
+  .checkbox-pill-label {
+    @apply relative inline-flex cursor-pointer items-center;
+  }
+
+  .radio-pill-input,
+  .checkbox-pill-input {
+    @apply sr-only;
+  }
+
+  .radio-pill-text,
+  .checkbox-pill-text {
+    @apply rounded-lg border-2 border-gray-200 bg-white px-2 py-1 text-sm font-medium text-gray-700 transition-all duration-200;
+  }
+
+  .radio-pill-label:hover .radio-pill-text,
+  .checkbox-pill-label:hover .checkbox-pill-text {
+    @apply border-accent;
+  }
+
+  /* Selected state - solid green */
+  .radio-pill-input:checked ~ .radio-pill-text,
+  .checkbox-pill-input:checked ~ .checkbox-pill-text {
+    @apply bg-accent border-transparent text-white shadow-md;
+  }
+
+  .radio-pill-input:focus-visible ~ .radio-pill-text,
+  .checkbox-pill-input:focus-visible ~ .checkbox-pill-text {
+    @apply ring-2 ring-blue-500 ring-offset-2;
+  }
+
+  /* CTA Button */
+  .-cta {
+    @apply bg-primary inline-flex items-center justify-center overflow-hidden rounded-xl px-8 py-4 text-lg font-semibold text-white shadow-lg shadow-blue-200 transition-all duration-300 hover:-translate-y-1 hover:bg-blue-700 hover:shadow-blue-300 active:scale-95;
   }
 }

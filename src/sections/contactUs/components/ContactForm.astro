@@ -1,0 +1,266 @@
+---
+import FormField from '@/components/FormField.astro';
+import type { fieldProps } from '../types/contact';
+
+const fields: fieldProps[] = [
+  {
+    name: 'name',
+    label: 'Nombre completo',
+    type: 'text',
+    required: true,
+    placeholder: 'Ej. Juan Pérez',
+  },
+  {
+    name: 'email',
+    label: 'Email',
+    type: 'email',
+    required: true,
+    placeholder: 'Ej. juan.perez@gmail.com',
+  },
+  {
+    name: 'phone',
+    label: 'Teléfono',
+    type: 'tel',
+    required: true,
+    placeholder: 'Ej. 11 1234 5467',
+  },
+  {
+    name: 'organization',
+    label: 'Organización',
+    type: 'text',
+    required: true,
+    placeholder: 'Ej. Empresa SRL / Barrio X',
+  },
+  {
+    name: 'location',
+    label: 'Ubicación',
+    type: 'text',
+    required: true,
+    placeholder: 'Ej. Tigre, Buenos Aires',
+  },
+  {
+    name: 'referralSource',
+    label: '¿Cómo te enteraste de nosotros?',
+    type: 'select',
+    options: [
+      {
+        value: 'google',
+        label: 'Google',
+      },
+      {
+        value: 'social_media',
+        label: 'Redes sociales',
+      },
+      {
+        value: 'known_person',
+        label: 'Conocidos',
+      },
+      {
+        value: 'other',
+        label: 'Otro',
+      },
+    ],
+    required: false,
+  },
+  {
+    name: 'services',
+    label: 'Selecciona los servicios que te interesan',
+    type: 'checkbox',
+    options: [
+      {
+        value: 'service1',
+        label: 'Servicio 1',
+      },
+      {
+        value: 'service2',
+        label: 'Servicio 2',
+      },
+      {
+        value: 'service3',
+        label: 'Servicio 3',
+      },
+      {
+        value: 'service4',
+        label: 'Servicio 4',
+      },
+      {
+        value: 'service5',
+        label: 'Servicio 5',
+      },
+    ],
+    required: false,
+  },
+  {
+    name: 'contactMethod',
+    label: '¿Por qué medio quieres que te contactemos?',
+    type: 'radio',
+    options: [
+      {
+        value: 'email',
+        label: 'Email',
+      },
+      {
+        value: 'phone',
+        label: 'Teléfono',
+      },
+    ],
+    required: false,
+  },
+  {
+    name: 'notes',
+    label: 'Notas',
+    type: 'textarea',
+    required: false,
+    placeholder: 'Ej. dimensiones, notas adicionales',
+  },
+];
+---
+
+<form
+  id="contact-form"
+  class="contact-form bg-card border-border w-full rounded-2xl border p-6 shadow-xl"
+  method="POST"
+>
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+    {fields.map((field) => <FormField field={field} />)}
+  </div>
+  <button
+    id="submit-button"
+    type="submit"
+    class="bg-primary mt-4 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg px-4 py-2 text-white transition-transform duration-300 hover:scale-105 hover:bg-blue-700 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+  >
+    <svg
+      id="spinner"
+      class="hidden h-5 w-5 animate-spin"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
+      ></circle>
+      <path
+        class="opacity-75"
+        fill="currentColor"
+        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+      ></path>
+    </svg>
+    <span id="button-text" class="font-bold">Enviar</span>
+  </button>
+</form>
+
+<script>
+  import { ContactSchema } from '../schemas/contact.schema';
+  import type { ContactFormSchema } from '../types/contact';
+
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const submitButton = document.getElementById('submit-button') as HTMLButtonElement;
+  const buttonText = document.getElementById('button-text') as HTMLSpanElement;
+  // Function to clear all error states and messages
+  const clearErrors = () => {
+    const inputs = form.querySelectorAll('input, textarea, select');
+    inputs.forEach((input) => {
+      input.removeAttribute('data-error');
+    });
+
+    // Clear all error messages
+    const errorMessages = form.querySelectorAll('.error-message');
+    errorMessages.forEach((msg) => {
+      msg.textContent = '';
+      msg.classList.add('hidden');
+    });
+  };
+
+  // Function to apply error states and messages to specific fields
+  const applyErrors = (errors: Record<string, any>) => {
+    Object.keys(errors).forEach((fieldName) => {
+      if (fieldName === '_errors') return; // Skip root-level errors
+
+      // Find the input element by name
+      const input = form.querySelector(`[name="${fieldName}"]`) as HTMLElement;
+      if (input) {
+        input.setAttribute('data-error', 'true');
+      }
+
+      // Find and populate the error message
+      const errorMsg = form.querySelector(`[data-error-for="${fieldName}"]`) as HTMLElement;
+      if (errorMsg && errors[fieldName]._errors && errors[fieldName]._errors.length > 0) {
+        errorMsg.textContent = errors[fieldName]._errors[0];
+        errorMsg.classList.remove('hidden');
+      }
+    });
+  };
+
+  // Function to set loading state
+  const setLoading = (loading: boolean) => {
+    const spinner = document.getElementById('spinner');
+
+    if (loading) {
+      submitButton.disabled = true;
+      buttonText.textContent = 'Enviando...';
+      spinner?.classList.remove('hidden');
+    } else {
+      submitButton.disabled = false;
+      buttonText.textContent = 'Enviar';
+      spinner?.classList.add('hidden');
+    }
+  };
+
+  if (form && submitButton && buttonText) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(event.currentTarget as HTMLFormElement);
+      const data: Partial<ContactFormSchema> = Object.fromEntries(formData.entries()) as any;
+
+      // Handle checkboxes (services field) - collect all checked values
+      const services = formData.getAll('services') as string[];
+      if (services.length > 0) {
+        data.services = services;
+      }
+
+      const result = ContactSchema.safeParse(data);
+
+      if (result.success) {
+        // Set loading state
+        setLoading(true);
+
+        try {
+          // Send the data to your backend
+          const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(result.data),
+          });
+
+          if (response.ok) {
+            console.log('Form submitted successfully!');
+            buttonText.textContent = '✓ Enviado';
+            // Reset after 2 seconds
+            setTimeout(() => {
+              form.reset();
+              setLoading(false);
+            }, 2000);
+          } else {
+            throw new Error('Failed to submit form');
+          }
+        } catch (error) {
+          console.error('Error submitting form:', error);
+
+          // Re-enable after 2 seconds
+          setTimeout(() => {
+            setLoading(false);
+          }, 2000);
+        }
+      } else {
+        console.error('Validation errors:', result.error.format());
+
+        // Apply errors to show which fields are invalid
+        clearErrors();
+        const errors = result.error.format();
+        applyErrors(errors);
+      }
+    });
+  }
+</script>
