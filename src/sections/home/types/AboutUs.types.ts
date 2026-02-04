@@ -1,4 +1,4 @@
-import type { ServiceCardBase } from './ServiceCard';
+import type { ServiceCardBase } from './ServiceCard.types';
 
 export interface AboutUsProps {
   sectionHeader: string;

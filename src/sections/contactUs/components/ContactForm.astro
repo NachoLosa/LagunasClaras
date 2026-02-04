@@ -1,6 +1,6 @@
 ---
 import FormField from '@/components/FormField.astro';
-import type { fieldProps } from '../types/contact';
+import type { fieldProps } from '../types/Contact.types';
 
 const fields: fieldProps[] = [
   {
@@ -150,7 +150,7 @@ const fields: fieldProps[] = [
 
 <script>
   import { ContactSchema } from '../schemas/contact.schema';
-  import type { ContactFormSchema } from '../types/contact';
+  import type { ContactFormSchema } from '../types/Contact.types';
 
   const form = document.getElementById('contact-form') as HTMLFormElement;
   const submitButton = document.getElementById('submit-button') as HTMLButtonElement;

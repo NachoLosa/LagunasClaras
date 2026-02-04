@@ -243,6 +243,7 @@ bg-[#1F6F5B]
 - Components: `PascalCase.astro`
 - Features: `kebab-case/`
 - Islands: `PascalCase.tsx`
+- Types: `PascalCase.types.ts`
 
 ---
 
