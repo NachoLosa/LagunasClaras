@@ -1,4 +1,5 @@
 ---
+import FAQAccordion from '@/components/FAQAccordion.astro';
 import SeoHead from '../components/SeoHead.astro';
 import Layout from '../layouts/Layout.astro';
 
@@ -11,12 +12,8 @@ const SeoContent = {
 
 <Layout>
   <SeoHead title={SeoContent.title} description={SeoContent.description} />
+
   <Fragment slot="main">
-    <main class="min-h-[60vh] py-12">
-      <h1 class="text-primary mb-4 text-3xl font-bold">Preguntas Frecuentes</h1>
-      <p class="text-foreground/80 text-lg">
-        Aquí se responden las preguntas frecuentes de los usuarios.
-      </p>
-    </main>
+    <FAQAccordion />
   </Fragment>
 </Layout>
