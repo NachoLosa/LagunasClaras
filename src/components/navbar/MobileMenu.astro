@@ -1,0 +1,79 @@
+---
+import { Facebook, Instagram, LinkedIn, LogoMono, Mail, Phone } from '@icons';
+
+interface Props {
+  links: { title: string; href: string }[];
+  brandTitle: string;
+}
+
+const { links, brandTitle } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<!-- Mobile Menu Overlay -->
+<div
+  id="menu-overlay"
+  class="pointer-events-none fixed inset-0 z-30 bg-black/40 opacity-0 backdrop-blur-sm transition-opacity duration-300"
+>
+</div>
+
+<!-- Mobile Menu Container -->
+<div
+  id="mobile-menu"
+  class="bg-background fixed top-0 right-0 z-40 flex h-screen w-[80vw] translate-x-full flex-col border-l px-8 shadow-2xl transition-transform duration-500 ease-in-out md:hidden"
+>
+  <div class="mt-20 flex flex-1 flex-col gap-6">
+    {
+      links.map((link) => {
+        const isActive = link.href === '/' ? currentPath === '/' : currentPath.includes(link.href);
+        return (
+          <a
+            href={link.href}
+            class={`text-xl font-semibold transition-colors duration-300 ${
+              isActive ? 'text-primary' : 'text-foreground'
+            }`}
+          >
+            {link.title}
+          </a>
+        );
+      })
+    }
+  </div>
+
+  <!-- Mobile Menu Footer -->
+  <div class="border-t pt-8">
+    <div class="mb-6 flex flex-col items-center gap-2">
+      <LogoMono class="text-primary h-12 w-12" />
+      <span class="text-primary text-sm font-bold">{brandTitle}</span>
+    </div>
+
+    <div class="mb-8 flex justify-center gap-8">
+      <a href="https://instagram.com" class="text-primary hover:text-accent transition-colors">
+        <Instagram class="h-6 w-6" />
+      </a>
+      <a href="https://linkedin.com" class="text-primary hover:text-accent transition-colors">
+        <LinkedIn class="h-6 w-6" />
+      </a>
+      <a href="https://facebook.com" class="text-primary hover:text-accent transition-colors">
+        <Facebook class="h-6 w-6" />
+      </a>
+    </div>
+
+    <div class="flex flex-col gap-4 text-sm font-medium">
+      <a
+        href="mailto:contacto@lagunasclaras.com"
+        class="text-foreground hover:text-primary flex items-center gap-3 transition-colors"
+      >
+        <Mail class="text-primary h-5 w-5" />
+        <span>contacto@lagunasclaras.com</span>
+      </a>
+      <a
+        href="tel:+5491150451158"
+        class="text-foreground hover:text-primary flex items-center gap-3 transition-colors"
+      >
+        <Phone class="text-primary h-5 w-5" />
+        <span>+54 9 11 5045-1158</span>
+      </a>
+    </div>
+  </div>
+</div>

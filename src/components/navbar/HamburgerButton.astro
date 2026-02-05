@@ -1,0 +1,60 @@
+---
+interface Props {
+  id: string;
+  class?: string;
+}
+
+const { id, class: className } = Astro.props;
+---
+
+<button
+  id={id}
+  class={`relative flex items-center justify-center w-10 h-10 transition-colors duration-300 ${className}`}
+  aria-label="Toggle Menu"
+>
+  <div class="menu-path relative h-5 w-6">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</button>
+
+<style>
+  .menu-path span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: currentColor;
+    border-radius: 9px;
+    position: absolute;
+    left: 0;
+    transition: 0.3s ease;
+  }
+
+  /* Initial positions */
+  .menu-path span:nth-child(1) {
+    top: 0;
+  }
+  .menu-path span:nth-child(2) {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .menu-path span:nth-child(3) {
+    top: 100%;
+    transform: translateY(-100%);
+  }
+
+  /* Open state - triggered by .open class on the button */
+  :global(.open) .menu-path span:nth-child(1) {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+  }
+  :global(.open) .menu-path span:nth-child(2) {
+    opacity: 0;
+    transform: translateY(-50%) translateX(20px);
+  }
+  :global(.open) .menu-path span:nth-child(3) {
+    top: 50%;
+    transform: translateY(-50%) rotate(-45deg);
+  }
+</style>

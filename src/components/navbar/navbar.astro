@@ -1,5 +1,7 @@
 ---
 import type { NavbarContent } from './navbar.types';
+import MobileMenu from './MobileMenu.astro';
+import HamburgerButton from './HamburgerButton.astro';
 
 const content: NavbarContent = {
   brandTitle: 'Lagunas Claras',
@@ -17,22 +19,31 @@ const { brandTitle, links } = content;
 const currentPath = Astro.url.pathname;
 ---
 
-<!-- TODO: Make hamburguer menu? 
-FIXME: Responsive
--->
 <nav
   id="navbar"
-  class="text-primary-foreground fixed top-0 left-0 z-50 w-full bg-transparent transition-all duration-300"
+  class="text-primary-foreground fixed top-0 left-0 z-100 w-full transition-all duration-300"
 >
-  <div class="mx-auto flex h-20 max-w-7xl items-center justify-between px-4">
+  <!-- Background bar -->
+  <div id="navbar-bg" class="absolute inset-0 h-20 bg-transparent transition-all duration-300">
+  </div>
+
+  <div class="relative z-50 mx-auto flex h-20 max-w-7xl items-center justify-between px-4">
     <!-- Logo -->
-    <a href="/" class="text-primary flex items-center gap-2 text-lg font-bold">
-      <img src="/logo.svg" alt="Lagunas Claras" class="h-6 w-6 min-w-6" />
-      <span id="nav-title" class="text-primary-foreground font-semibold">{brandTitle}</span>
+    <a
+      href="/"
+      id="nav-logo"
+      class="text-primary relative z-10 flex items-center gap-2 text-lg font-bold transition-opacity duration-300"
+    >
+      <img src="/logo.svg" alt="Lagunas Claras" class="h-12 w-12 min-w-6" />
+      <span
+        id="nav-title"
+        class="text-primary-foreground font-semibold transition-colors duration-300"
+        >{brandTitle}</span
+      >
     </a>
 
-    <!-- Navigation Links -->
-    <ul class="flex gap-6 text-base font-medium">
+    <!-- Desktop Navigation Links -->
+    <ul class="hidden gap-6 text-base font-medium md:flex">
       {
         links.map((link) => {
           const isActive =
@@ -41,7 +52,7 @@ FIXME: Responsive
             <li class="group transition-all duration-300 hover:translate-y-2 hover:scale-110">
               <a
                 href={link.href}
-                class={`nav-link ${isActive ? 'active' : ''}`}
+                class={`nav-link ${isActive ? 'active' : ''} transition-colors duration-300`}
                 aria-current={isActive ? 'page' : undefined}
               >
                 {link.title}
@@ -51,36 +62,95 @@ FIXME: Responsive
         })
       }
     </ul>
+
+    <!-- Mobile Menu Button -->
+    <HamburgerButton id="menu-toggle" class="text-primary-foreground z-60 md:hidden" />
   </div>
+
+  <MobileMenu links={links} brandTitle={brandTitle} />
 </nav>
 
 <script>
-  const navbar = document.getElementById('navbar');
+  const navbarBg = document.getElementById('navbar-bg');
+  const navLogo = document.getElementById('nav-logo');
   const navLinks = document.querySelectorAll('.nav-link');
   const navTitle = document.getElementById('nav-title');
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuOverlay = document.getElementById('menu-overlay');
   const isHomePage = window.location.pathname === '/';
-  const updateNavbar = () => {
-    if (window.scrollY === 0 && isHomePage) {
-      navbar?.classList.remove('bg-background', 'backdrop-blur', 'shadow-md');
-      navbar?.classList.add('bg-transparent');
+
+  let isMenuOpen = false;
+
+  const toggleMenu = () => {
+    isMenuOpen = !isMenuOpen;
+
+    menuToggle?.classList.toggle('open');
+    mobileMenu?.classList.toggle('translate-x-full');
+    mobileMenu?.classList.toggle('translate-x-0');
+    menuOverlay?.classList.toggle('opacity-0');
+    menuOverlay?.classList.toggle('opacity-100');
+    menuOverlay?.classList.toggle('pointer-events-none');
+    mobileMenu?.classList.toggle('active');
+
+    // Hide logo/title when menu is open
+    navLogo?.classList.toggle('opacity-0');
+    navLogo?.classList.toggle('pointer-events-none');
+
+    // Body scroll lock
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+      // Switch button to primary color to see it over the menu tray
+      menuToggle?.classList.remove('text-primary-foreground');
+      menuToggle?.classList.add('text-primary');
+    } else {
+      document.body.style.overflow = '';
+      updateNavbarStyling();
+    }
+  };
+
+  const updateNavbarStyling = () => {
+    const isScrolled = window.scrollY > 0 || !isHomePage;
+
+    if (!isScrolled) {
+      navbarBg?.classList.remove('bg-background', 'backdrop-blur', 'shadow-md');
+      navbarBg?.classList.add('bg-transparent');
       navLinks.forEach((link) => {
         link?.classList.remove('text-primary');
         link?.classList.add('text-primary-foreground');
       });
       navTitle?.classList.remove('text-primary');
       navTitle?.classList.add('text-primary-foreground');
+      if (!isMenuOpen) {
+        menuToggle?.classList.remove('text-primary');
+        menuToggle?.classList.add('text-primary-foreground');
+      }
     } else {
-      navbar?.classList.remove('bg-transparent');
-      navbar?.classList.add('bg-background', 'backdrop-blur', 'shadow-md');
+      navbarBg?.classList.remove('bg-transparent');
+      navbarBg?.classList.add('bg-background', 'backdrop-blur', 'shadow-md');
       navLinks.forEach((link) => {
         link?.classList.remove('text-primary-foreground');
         link?.classList.add('text-primary');
       });
       navTitle?.classList.remove('text-primary-foreground');
       navTitle?.classList.add('text-primary');
+      if (!isMenuOpen) {
+        menuToggle?.classList.remove('text-primary-foreground');
+        menuToggle?.classList.add('text-primary');
+      }
     }
   };
 
-  updateNavbar();
-  window.addEventListener('scroll', updateNavbar);
+  menuToggle?.addEventListener('click', toggleMenu);
+  menuOverlay?.addEventListener('click', toggleMenu);
+
+  updateNavbarStyling();
+  window.addEventListener('scroll', updateNavbarStyling);
+
+  // Close menu on resize if window becomes large
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768 && isMenuOpen) {
+      toggleMenu();
+    }
+  });
 </script>
