@@ -1,21 +1,24 @@
 ---
+import Breadcrumb from '@/components/Breadcrumb.astro';
 import SeoHead from '@/components/SeoHead.astro';
+import { clientsMock } from '@/content/clientsMock';
 import Layout from '@/layouts/Layout.astro';
+import ClientsCards from '@/sections/home/components/ClientsCards.astro';
 const SeoContent = {
   title: 'Clientes que confían en nosotros | Lagunas Claras',
   description:
     'Empresas, municipios e instituciones de todo el país que confían en nuestros servicios de mantenimiento de lagos y espejos de agua.',
 };
+const title = 'Clientes que confían en nosotros';
 ---
 
 <Layout>
   <SeoHead title={SeoContent.title} description={SeoContent.description} />
   <Fragment slot="main">
-    <main class="min-h-[60vh] py-12">
-      <h1 class="text-primary mb-4 text-3xl font-bold">Clientes</h1>
-      <p class="text-foreground/80 text-lg">
-        Aquí se muestran los clientes destacados o testimonios.
-      </p>
-    </main>
+    <Breadcrumb items={[{ label: 'Clientes' }]} className={'pt-24 pl-16'} />
+    <!-- Section Title -->
+    <h2 class="mb-16 pl-16 text-left text-3xl font-bold md:text-5xl">{title}</h2>
+
+    <ClientsCards services={clientsMock} />
   </Fragment>
 </Layout>
