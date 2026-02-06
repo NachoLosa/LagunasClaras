@@ -16,6 +16,7 @@ export default defineConfig({
         '@lib': new URL('./src/lib', import.meta.url).pathname,
         '@icons': new URL('./src/components/icons', import.meta.url).pathname,
         '@sections': new URL('./src/sections', import.meta.url).pathname,
+        '@content': new URL('./src/content', import.meta.url).pathname,
       },
     },
   },

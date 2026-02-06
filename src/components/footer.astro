@@ -26,14 +26,16 @@ const FooterContent = {
 <!-- TODO: Add real links, logo
   FIXME: Responsive -->
 <footer class="bg-primary py-4">
-  <div class="mx-auto w-full max-w-3xl p-4">
-    <div class="flex w-full flex-col items-center justify-between md:flex-row">
-      <div class="mb-4 flex flex-col items-center gap-6 md:mb-0 md:flex-col">
-        <div class="text-primary-foreground flex flex-col items-center gap-2 text-lg font-bold">
+  <div class="mx-auto w-full max-w-4xl p-4">
+    <div class="flex h-32 w-full items-center justify-between">
+      <div class="flex flex-col items-center gap-6 md:items-start">
+        <div
+          class="text-primary-foreground flex flex-col items-center gap-2 text-lg font-bold md:items-start"
+        >
           <LogoMono class="text-primary-foreground h-12 w-12 min-w-6" />
           <span class="nav-text font-semibold">{FooterContent.Title}</span>
         </div>
-        <div class="flex flex-row gap-6 md:flex-row">
+        <div class="flex flex-row gap-6 opacity-80">
           {
             FooterContent.networks.map(({ Icon, href }) => (
               <a
@@ -46,9 +48,7 @@ const FooterContent = {
           }
         </div>
       </div>
-      <div
-        class="text-primary-foreground flex flex-col gap-3 text-base font-medium sm:grid md:flex-col"
-      >
+      <div class="text-primary-foreground hidden flex-col gap-3 text-base font-medium md:flex">
         {
           FooterContent.links.map((link) => (
             <a href={link.href} class="relative transition-colors hover:underline">
@@ -56,6 +56,11 @@ const FooterContent = {
             </a>
           ))
         }
+      </div>
+
+      <div
+        class="h-[80%] w-px rounded-2xl border border-white/50 bg-white/50 sm:block md:hidden lg:hidden"
+      >
       </div>
       <div class="flex flex-col gap-6 md:flex-col">
         {
